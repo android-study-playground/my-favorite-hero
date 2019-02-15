@@ -1,2 +1,2 @@
-# my-favortite-hero
-Used to give a mini course at UFRPE
+# my-favorite-hero
+Repository used to Give a mini course to friends at The University - UFRPE

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">My Favorite Hero</string>
+    <string name="communication_fails">Ocorreu uma falha na nossa comunicação com o servidor, por favor tente novamente
+        mais tarde!
+    </string>
+    <string name="error_dialog_title">Sorry, estamos passando por dificuldades! :(</string>
+    <string name="ok">Ok</string>
+    <string name="unknow_error">Aconteceu um erro e estamos correndo para solucionar, tente novamente mais tarde!
+    </string>
+    <string name="no_internet_connection">Parece que você está sem internet, você poderia ligá-lá para podermos
+        solucionar este problema?
+    </string>
+    <string name="unauthorized">Parece que não estamos conseguindo nos comunicar corretamente, tentaremos solucionar
+        isso, você poderia voltar outra hora?
+    </string>
+</resources>
