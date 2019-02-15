@@ -47,7 +47,7 @@ class ListHeroesActivity : AppCompatActivity(), HeroEventListener {
                     listHeroes.adapter = heroAdapter
                     listHeroes.addOnScrollListener(object : EndlessScrollListener(layoutManager){
                         override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
-                            listCharacterViewModel.loadMore()
+                            listCharacterViewModel.loadMore(totalItemsCount)
                         }
                     })
 

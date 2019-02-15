@@ -1,7 +1,5 @@
 package com.br.myfavoritehero.util
 
-import com.br.myfavoritehero.data.models.Hero
-
 object Constants {
 
     const val CONNECTION_TIMEOUT = 15L
@@ -31,7 +29,5 @@ object Constants {
 
     const val type = ".jpg"
     const val separator = "/"
-
-    var heroes = ArrayList<Hero>()
 
 }

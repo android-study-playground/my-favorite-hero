@@ -28,7 +28,7 @@ class DetailHeroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_hero)
 
-        hero = intent.getSerializableExtra(HERO) as Hero
+        hero = intent.getParcelableExtra<Hero>(HERO)
         heroImage.layoutParams.width = getWidth()
         heroImage.layoutParams.height = getWidth()
         Picasso.get().load(hero.thumbnail.path + separator + standard_amazing + type).into(heroImage)

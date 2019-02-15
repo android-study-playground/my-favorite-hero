@@ -20,9 +20,11 @@ android {
     }
 
     buildTypes {
-        
         buildTypes {
             debug {
+                buildConfigField "String", "BASE_URL", '"http://gateway.marvel.com/"'
+                buildConfigField "String", "PUBLIC_KEY", '"YOUR_PUBLIC_KEY"'
+                buildConfigField "String", "PRIVATE_KEY", '"YOUR_PRIVATE_KEY"'
                 applicationIdSuffix ".debug"
                 testCoverageEnabled true
             }
@@ -30,9 +32,16 @@ android {
             release {
                 minifyEnabled false
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                buildConfigField "String", "BASE_URL", '"http://gateway.marvel.com/"'
+                buildConfigField "String", "PUBLIC_KEY", '"YOUR_PUBLIC_KEY"'
+                buildConfigField "String", "PRIVATE_KEY", '"YOUR_PRIVATE_KEY"'
             }
         }
     }
+}
+
+androidExtensions {
+    experimental = true
 }
 
 dependencies {
@@ -50,8 +59,11 @@ dependencies {
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    //GSon
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
     implementation "com.squareup.retrofit2:converter-gson:2.4.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.9.0"
+    implementation "com.squareup.okhttp3:okhttp:3.12.1"
 
     //AndroidX ViewModel/LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"

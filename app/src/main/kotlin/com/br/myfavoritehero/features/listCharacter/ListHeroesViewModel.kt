@@ -4,11 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import com.br.myfavoritehero.base.BaseViewModel
 import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.data.models.ViewStateModel
-import com.br.myfavoritehero.data.data.DataBaseAccess
+import com.br.myfavoritehero.data.request.Repository
 
 class ListHeroesViewModel: BaseViewModel() {
 
-    private val repository: DataBaseAccess = DataBaseAccess()
+    private val repository: Repository = Repository()
 
     private val viewStateResponse: MutableLiveData<ViewStateModel<ArrayList<Hero>>> = MutableLiveData()
     private val viewStateResponseLoadMore: MutableLiveData<ViewStateModel<ArrayList<Hero>>> = MutableLiveData()
@@ -20,22 +20,23 @@ class ListHeroesViewModel: BaseViewModel() {
     fun loadHeroes(){
         viewStateResponse.postValue(ViewStateModel(ViewStateModel.Status.LOADING))
         repository.getHeroes(
-            { list ->
-                viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.SUCCESS, model = list))
+            { base ->
+                viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.SUCCESS, model = base.data.results as ArrayList<Hero>))
             }, {error ->
                 viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.ERROR, errors = notKnownError(error)))
             }
         )
     }
 
-    fun loadMore(){
+    fun loadMore(offset: Int){
         viewStateResponseLoadMore.postValue(ViewStateModel(ViewStateModel.Status.LOADING))
         repository.loadMore(
-            { list ->
-                viewStateResponseLoadMore.postValue(ViewStateModel(status = ViewStateModel.Status.SUCCESS, model = list))
+            { base ->
+                viewStateResponseLoadMore.postValue(ViewStateModel(status = ViewStateModel.Status.SUCCESS, model = base.data.results as ArrayList<Hero>))
             }, {error ->
                 viewStateResponseLoadMore.postValue(ViewStateModel(status = ViewStateModel.Status.ERROR, errors = notKnownError(error)))
-            }
+            },
+            offset
         )
     }
 

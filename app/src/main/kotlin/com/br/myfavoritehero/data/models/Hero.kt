@@ -1,7 +1,9 @@
 package com.br.myfavoritehero.data.models
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Hero(
 
     val id : Int = 0,
@@ -16,4 +18,4 @@ data class Hero(
     val events : Items = Items(),
     val urls : ArrayList<Url> = ArrayList()
 
-): Serializable
+): Parcelable
