@@ -59,11 +59,23 @@ dependencies {
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    //Koin
+    implementation "org.koin:koin-core:1.0.2"
+    implementation 'org.koin:koin-android:1.0.2'
+    implementation 'org.koin:koin-androidx-scope:1.0.2'
+    implementation 'org.koin:koin-androidx-viewmodel:1.0.2'
+
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.4.0"
     implementation "com.squareup.retrofit2:converter-gson:2.4.0"
     implementation "com.squareup.okhttp3:logging-interceptor:3.9.0"
     implementation "com.squareup.okhttp3:okhttp:3.12.1"
+
+    //Rx
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
+    implementation "io.reactivex.rxjava2:rxkotlin:2.3.0"
+
 
     //AndroidX ViewModel/LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"

@@ -17,33 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class Repository{
-
-    private var apiService: ApiService
-
-    init {
-        val httpLogInterceptor = HttpLoggingInterceptor()
-
-        if (BuildConfig.DEBUG) {
-            httpLogInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        } else {
-            httpLogInterceptor.level = HttpLoggingInterceptor.Level.NONE
-        }
-
-        val retrofit = Retrofit
-            .Builder()
-            .addConverterFactory(GsonConverterFactory.create(Gson()))
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(OkHttpClient.Builder()
-                .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-                .addInterceptor(httpLogInterceptor)
-                .build())
-            .build()
-
-
-        apiService = retrofit.create<ApiService>(ApiService::class.java)
-    }
+class Repository(private val apiService: ApiService){
 
     fun getHeroes(
         success: (base: BaseResponse<Hero>) -> Unit,

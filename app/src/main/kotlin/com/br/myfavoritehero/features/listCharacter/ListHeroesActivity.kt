@@ -15,13 +15,14 @@ import com.br.myfavoritehero.features.heroDetails.DetailHeroActivity
 import com.br.myfavoritehero.features.listener.EndlessScrollListener
 import com.br.myfavoritehero.util.Constants.HERO
 import kotlinx.android.synthetic.main.activity_list_heroes.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class ListHeroesActivity : AppCompatActivity(), HeroEventListener {
 
     private lateinit var heroAdapter: HeroAdapter
 
-    val listCharacterViewModel: ListHeroesViewModel = ListHeroesViewModel()
+    val listCharacterViewModel: ListHeroesViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

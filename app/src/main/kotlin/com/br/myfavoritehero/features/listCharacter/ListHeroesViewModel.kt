@@ -6,9 +6,7 @@ import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.data.models.ViewStateModel
 import com.br.myfavoritehero.data.request.Repository
 
-class ListHeroesViewModel: BaseViewModel() {
-
-    private val repository: Repository = Repository()
+class ListHeroesViewModel(private val repository: Repository): BaseViewModel() {
 
     private val viewStateResponse: MutableLiveData<ViewStateModel<ArrayList<Hero>>> = MutableLiveData()
     private val viewStateResponseLoadMore: MutableLiveData<ViewStateModel<ArrayList<Hero>>> = MutableLiveData()
