@@ -30,7 +30,7 @@ class ListHeroesActivity : AppCompatActivity(), HeroEventListener {
         initObservable()
     }
 
-    fun initObservable(){
+    private fun initObservable(){
         listCharacterViewModel.getHeroes().observe(this, Observer{ stateModel ->
 
             when(stateModel.status){
