@@ -17,6 +17,7 @@
     <color name="secondaryTextColor">#000000</color>
 
     <!-- utility colors -->
+    <color name="transparent">#00fafafa</color>
     <color name="white">#fafafa</color>
     <color name="black">#000000</color>
 

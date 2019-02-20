@@ -1,6 +1,7 @@
 package com.br.myfavoritehero.data.models
 
 import android.os.Parcelable
+import com.br.myfavoritehero.util.Constants
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -18,4 +19,9 @@ data class Hero(
     val events : Items = Items(),
     val urls : ArrayList<Url> = ArrayList()
 
-): Parcelable
+): Parcelable {
+
+    fun getThumbnailCardUrl() : String{
+        return thumbnail.path + Constants.separator + Constants.landscape_amazing + Constants.type
+    }
+}

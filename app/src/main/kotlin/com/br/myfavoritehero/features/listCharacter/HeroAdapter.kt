@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.HeroEventListener
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.hero_item.view.*
 
 class HeroAdapter(
@@ -21,6 +22,7 @@ class HeroAdapter(
     override fun onBindViewHolder(holder: HeroViewHolder, position: Int) {
         elements?.let {
             val hero = it[position]
+            Picasso.get().load(hero.getThumbnailCardUrl()).into(holder.mLinearLayout.heroCardImage)
             holder.mLinearLayout.heroName.text = hero.name
             holder.mLinearLayout.setOnClickListener { listener.onHeroClicked(hero) }
         }
