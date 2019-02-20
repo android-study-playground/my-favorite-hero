@@ -30,8 +30,6 @@ class DetailHeroActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         hero = intent.getParcelableExtra<Hero>(HERO)
-        heroImage.layoutParams.width = getWidth()
-        heroImage.layoutParams.height = getWidth()
         Picasso.get().load(hero.thumbnail.path + separator + landscape_amazing + type).into(heroImage)
         description.text = hero.description
 
@@ -42,13 +40,6 @@ class DetailHeroActivity : AppCompatActivity() {
             it.setDisplayHomeAsUpEnabled(true)
             it.title = hero.name
         }
-    }
-
-    private fun getWidth(): Int{
-        val display = windowManager.defaultDisplay
-        val size = Point()
-        display.getSize(size)
-        return size.x
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

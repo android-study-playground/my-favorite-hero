@@ -14,7 +14,11 @@ import com.br.myfavoritehero.data.models.ViewStateModel
 import com.br.myfavoritehero.features.heroDetails.DetailHeroActivity
 import com.br.myfavoritehero.features.listener.EndlessScrollListener
 import com.br.myfavoritehero.util.Constants.HERO
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_detail_hero.*
 import kotlinx.android.synthetic.main.activity_list_heroes.*
+import kotlinx.android.synthetic.main.generic_error_screen.*
+import kotlinx.android.synthetic.main.hero_list_loading.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -35,11 +39,16 @@ class ListHeroesActivity : AppCompatActivity(), HeroEventListener {
 
             when(stateModel.status){
                 ViewStateModel.Status.ERROR -> {
+                    error_screen.visibility = View.VISIBLE
+                    listHeroes.visibility = View.GONE
+                    shimmer_view_container.visibility = View.GONE
+                    shimmer_view_container.stopShimmerAnimation()
                     Timber.d("ERROR: ${stateModel.errors.toString()}")
-                    progressBarList.visibility = View.GONE
                 }
                 ViewStateModel.Status.SUCCESS -> {
-                    progressBarList.visibility = View.GONE
+                    listHeroes.visibility = View.VISIBLE
+                    shimmer_view_container.visibility = View.GONE
+                    shimmer_view_container.stopShimmerAnimation()
 
                     listHeroes.setHasFixedSize(true)
                     val layoutManager = LinearLayoutManager(this)
@@ -54,7 +63,8 @@ class ListHeroesActivity : AppCompatActivity(), HeroEventListener {
 
                 }
                 ViewStateModel.Status.LOADING -> {
-                    progressBarList.visibility = View.VISIBLE
+                    shimmer_view_container.visibility = View.VISIBLE
+                    shimmer_view_container.startShimmerAnimation()
                     Timber.d("LOADING: ... ")
                 }
             }
@@ -63,22 +73,21 @@ class ListHeroesActivity : AppCompatActivity(), HeroEventListener {
         listCharacterViewModel.getMore().observe(this, Observer { stateModel ->
             when(stateModel.status){
                 ViewStateModel.Status.ERROR -> {
+                    Snackbar.make(activity_list_heroes, R.string.error_dialog_title, Snackbar.LENGTH_SHORT).show()
                     Timber.d("ERROR: ${stateModel.errors.toString()}")
-                    tinyProgressBar.visibility = View.GONE
+                    heroAdapter.stopLoading()
                 }
                 ViewStateModel.Status.SUCCESS -> {
-                    tinyProgressBar.visibility = View.GONE
+                    heroAdapter.stopLoading()
                     heroAdapter.updateUI(stateModel.model!!)
                 }
                 ViewStateModel.Status.LOADING -> {
-                    tinyProgressBar.visibility = View.VISIBLE
+                    heroAdapter.startLoading()
                     Timber.d("LOADING: ... ")
                 }
             }
         })
-
         listCharacterViewModel.loadHeroes()
-
     }
 
     override fun onHeroClicked(hero: Hero) {

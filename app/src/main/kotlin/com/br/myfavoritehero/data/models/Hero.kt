@@ -19,9 +19,4 @@ data class Hero(
     val events : Items = Items(),
     val urls : ArrayList<Url> = ArrayList()
 
-): Parcelable {
-
-    fun getThumbnailCardUrl() : String{
-        return thumbnail.path + Constants.separator + Constants.landscape_amazing + Constants.type
-    }
-}
+): Parcelable

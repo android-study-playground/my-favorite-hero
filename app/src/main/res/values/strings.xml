@@ -16,6 +16,8 @@
 
     <string name="hero_name">Stan Lee</string>
 
+    <string name="comics">Revistas</string>
+
     <!-- FAVORITE, HATE STRINGS -->
     <string name="favorite">Favoritar</string>
     <string name="unFavorite">Desfavoritar</string>
