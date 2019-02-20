@@ -3,7 +3,7 @@
 .gradle
 /build
 local.properties
+gradle.properties
 /gradle
 gradlew.bat
 gradlew
-gradle.properties
