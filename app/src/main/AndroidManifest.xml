@@ -16,12 +16,12 @@
             tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-                android:theme="@style/FavoriteHeroBase"
+                android:theme="@style/AppTheme.NoActionBar"
                 android:name=".features.heroDetails.DetailHeroActivity">
         </activity>
 
         <activity
-                android:theme="@style/FavoriteHeroBase"
+                android:theme="@style/AppTheme"
                 android:name=".features.listCharacter.ListHeroesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

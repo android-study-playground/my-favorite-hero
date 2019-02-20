@@ -6,13 +6,13 @@ import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.util.Constants.HERO
 import com.br.myfavoritehero.util.Constants.separator
-import com.br.myfavoritehero.util.Constants.standard_amazing
 import com.br.myfavoritehero.util.Constants.type
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail_hero.*
 import android.graphics.Point
 import android.view.Menu
 import android.view.MenuItem
+import com.br.myfavoritehero.util.Constants.landscape_amazing
 import com.br.myfavoritehero.util.SharedPreferencesHelper
 import timber.log.Timber
 import com.google.android.material.snackbar.Snackbar
@@ -27,12 +27,12 @@ class DetailHeroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_hero)
+        setSupportActionBar(toolbar)
 
         hero = intent.getParcelableExtra<Hero>(HERO)
         heroImage.layoutParams.width = getWidth()
         heroImage.layoutParams.height = getWidth()
-        Picasso.get().load(hero.thumbnail.path + separator + standard_amazing + type).into(heroImage)
-        name.text = hero.name
+        Picasso.get().load(hero.thumbnail.path + separator + landscape_amazing + type).into(heroImage)
         description.text = hero.description
 
         favorited = SharedPreferencesHelper.isFavorited(this,hero.id)

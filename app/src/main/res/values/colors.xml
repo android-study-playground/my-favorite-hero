@@ -18,7 +18,7 @@
 
     <!-- utility colors -->
     <color name="white">#fafafa</color>
-    <color name="black">#fafafa</color>
+    <color name="black">#000000</color>
 
 
 </resources>
