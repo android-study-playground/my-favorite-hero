@@ -1,4 +1,6 @@
 version: 2
+general:
+  build_dir: /android/
 jobs:
   build:
     working_directory: ~/code/my-favorite-hero
