@@ -15,7 +15,7 @@ jobs:
         command: echo $PWD
     - run:
         name: listing folder
-        command: ls
+        command: ls -a
     - run:
         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
         command: sudo chmod +x ./gradlew
