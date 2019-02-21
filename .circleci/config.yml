@@ -17,6 +17,12 @@ jobs:
 #        name: listing folder
 #        command: ls -a
     - run:
+        name: Creating API credentials file
+        command: |
+        touch ~/.gradle/gradle.properties
+        echo marvelPublicKey=0000 >> ~/.gradle/gradle.properties
+        echo marvelPrivateKey=0000 >> ~/.gradle/gradle.properties
+    - run:
         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
         command: sudo chmod +x ./gradlew
     - run:
