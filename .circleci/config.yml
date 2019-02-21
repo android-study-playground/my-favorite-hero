@@ -36,11 +36,11 @@ jobs:
         name: CLEAN BUILD
         command: ./gradlew clean
     - run:
-        name: BUILD
-        command: ./gradlew build
+        name: RUN LINT
+        command: ./gradlew lintDebug
     - run:
-        name: RUN TESTS
-        command: ./gradlew lint test
+        name: RUN UNIT TESTS
+        command: ./gradlew testDebugUnitTest
     - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
         path: app/build/reports
         destination: reports
