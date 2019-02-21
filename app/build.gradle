@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.br.myfavoritehero"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+    }
+
+    buildTypes {
+        buildTypes {
+            debug {
+                buildConfigField "String", "BASE_URL", '"http://gateway.marvel.com/"'
+                buildConfigField "String", "PUBLIC_KEY", marvelPublicKey
+                buildConfigField "String", "PRIVATE_KEY", marvelPrivateKey
+                applicationIdSuffix ".debug"
+                testCoverageEnabled true
+            }
+
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                buildConfigField "String", "BASE_URL", '"http://gateway.marvel.com/"'
+                buildConfigField "String", "PUBLIC_KEY", marvelPublicKey
+                buildConfigField "String", "PRIVATE_KEY", marvelPrivateKey
+            }
+        }
+    }
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    //default
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
+    implementation 'androidx.core:core-ktx:1.1.0-alpha04'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'jp.wasabeef:picasso-transformations:2.2.1'
+
+    //Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //Koin
+    implementation "org.koin:koin-core:1.0.2"
+    implementation 'org.koin:koin-android:1.0.2'
+    implementation 'org.koin:koin-androidx-scope:1.0.2'
+    implementation 'org.koin:koin-androidx-viewmodel:1.0.2'
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.4.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.4.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.9.0"
+    implementation "com.squareup.okhttp3:okhttp:3.12.1"
+
+    //Rx
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
+    implementation "io.reactivex.rxjava2:rxkotlin:2.3.0"
+
+
+    //AndroidX ViewModel/LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    implementation "com.google.android.material:material:1.0.0"
+
+    //Unit Test
+    testImplementation 'junit:junit:4.12'
+
+    //Instrumented Test
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+}

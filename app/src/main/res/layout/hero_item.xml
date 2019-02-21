@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginBottom="@dimen/margin_default"
+        android:layout_marginRight="@dimen/margin_default">
+
+        <TextView
+                android:padding="@dimen/padding"
+                android:id="@+id/heroName"
+                android:text="@string/hero_name"
+                android:maxLines="1"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                />
+
+ </androidx.cardview.widget.CardView>
+
