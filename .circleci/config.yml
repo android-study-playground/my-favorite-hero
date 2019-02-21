@@ -10,14 +10,8 @@ jobs:
     - checkout
     - restore_cache:
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-#    - run:
-#        name: echo path
-#        command: echo $PWD
-#    - run:
-#        name: listing folder
-#        command: ls -a
     - run:
-        name: Creating API credentials file
+        name: CREATING API CREDENTIALS FILE
         command: touch gradle.properties
     - run:
         name: PUTTING PUBLIC API KEY
@@ -29,17 +23,23 @@ jobs:
         name: ACCEPTING ANDROID LICENSES #if permission for Gradlew Dependencies fail, use this.
         command: yes | sdkmanager --licenses || exit 0
     - run:
-        name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+        name: CHMOD PERMISSIONS #if permission for Gradlew Dependencies fail, use this.
         command: sudo chmod +x ./gradlew
     - run:
-        name: Download Dependencies
+        name: DOWNLOAD DEPENDENCIES
         command: ./gradlew androidDependencies
     - save_cache:
         paths:
         - ~/.gradle
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
     - run:
-        name: Run Tests
+        name: CLEAN BUILD
+        command: ./gradlew clean
+    - run:
+        name: BUILD
+        command: ./gradlew build
+    - run:
+        name: RUN TESTS
         command: ./gradlew lint test
     - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
         path: app/build/reports
