@@ -4,18 +4,10 @@ import com.br.myfavoritehero.BuildConfig
 import com.br.myfavoritehero.base.BaseResponse
 import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.data.network.ApiService
-import com.br.myfavoritehero.util.Constants.READ_TIMEOUT
 import com.br.myfavoritehero.util.Util
-import com.google.gson.Gson
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import com.br.myfavoritehero.util.Constants.CONNECTION_TIMEOUT
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 class Repository(private val apiService: ApiService){
 

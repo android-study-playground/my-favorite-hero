@@ -1,21 +1,18 @@
 package com.br.myfavoritehero.features.heroDetails
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.util.Constants.HERO
-import com.br.myfavoritehero.util.Constants.separator
-import com.br.myfavoritehero.util.Constants.type
+import com.br.myfavoritehero.util.SharedPreferencesHelper
+import com.br.myfavoritehero.util.getLargeLandscapeThumbnail
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail_hero.*
-import android.graphics.Point
-import android.view.Menu
-import android.view.MenuItem
-import com.br.myfavoritehero.util.Constants.landscape_amazing
-import com.br.myfavoritehero.util.SharedPreferencesHelper
 import timber.log.Timber
-import com.google.android.material.snackbar.Snackbar
 
 class DetailHeroActivity : AppCompatActivity() {
 
@@ -29,8 +26,8 @@ class DetailHeroActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail_hero)
         setSupportActionBar(toolbar)
 
-        hero = intent.getParcelableExtra<Hero>(HERO)
-        Picasso.get().load(hero.thumbnail.path + separator + landscape_amazing + type).into(heroImage)
+        hero = intent.getParcelableExtra(HERO)
+        Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail()).into(heroImage)
         description.text = hero.description
 
         favorited = SharedPreferencesHelper.isFavorited(this,hero.id)

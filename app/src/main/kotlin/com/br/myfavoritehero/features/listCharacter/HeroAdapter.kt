@@ -35,7 +35,7 @@ class HeroAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is HeroViewHolder){
-            elements?.let {
+            elements.let {
                 val hero = it[position]
                 Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail()).into(holder.mLinearLayout.heroCardImage)
                 holder.mLinearLayout.heroName.text = hero.name
