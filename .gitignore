@@ -1,9 +1,6 @@
 #Ignore Config
 local.properties
 gradle.properties
-/gradle
-gradlew.bat
-gradlew
 
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.

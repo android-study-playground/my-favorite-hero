@@ -11,14 +11,11 @@ jobs:
     - restore_cache:
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
 #    - run:
-#        name: Getting Wrapper #if permission for Gradlew Dependencies fail, use this.
-#        command: gradle wrapper
-    - run:
-        name: echo path
-        command: echo $PWD
-    - run:
-        name: listing folder
-        command: ls -a
+#        name: echo path
+#        command: echo $PWD
+#    - run:
+#        name: listing folder
+#        command: ls -a
     - run:
         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
         command: sudo chmod +x ./gradlew
