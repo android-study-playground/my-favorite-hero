@@ -10,6 +10,12 @@ jobs:
     - checkout
     - restore_cache:
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+
+    - run:
+        name: gradlew permissions
+        command: |
+          sudo chmod +x gradlew
+          ./gradlew dependencies
     - run:
         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
         command: sudo chmod +x ./gradlew
