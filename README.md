@@ -1,5 +1,5 @@
 # My Favorite Hero
-Repository used to Give a mini course to friends at The University - UFRPE
+This branch (master) is being used to study, some branches (android_basics, android_intermediate) were used to teach some students at the university - UFRPE
 
 ## Update
 Now this repo is being used as a free source to study and develop an application with new Android Features
