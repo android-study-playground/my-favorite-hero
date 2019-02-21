@@ -27,7 +27,7 @@ jobs:
         command: echo marvelPrivateKey=0000 >> gradle.properties
     - run:
         name: ACCEPTING ANDROID LICENSES #if permission for Gradlew Dependencies fail, use this.
-        command: yes | sdkmanager --licenses || :
+        command: yes | sdkmanager --licenses || exit 0
     - run:
         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
         command: sudo chmod +x ./gradlew
