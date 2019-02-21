@@ -1,4 +1,4 @@
-package com.br.myfavoritehero.features.heroDetails
+package com.br.myfavoritehero.features.listComics
 
 import androidx.lifecycle.ViewModel
 

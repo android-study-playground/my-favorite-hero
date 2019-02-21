@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.models.Hero
+import com.br.myfavoritehero.features.listComics.ComicsFragment
 import com.br.myfavoritehero.util.Constants.HERO
 import com.br.myfavoritehero.util.SharedPreferencesHelper
 import com.br.myfavoritehero.util.getLargeLandscapeThumbnail
@@ -24,6 +25,7 @@ class DetailHeroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_hero)
+
         setSupportActionBar(toolbar)
 
         hero = intent.getParcelableExtra(HERO)
@@ -37,6 +39,11 @@ class DetailHeroActivity : AppCompatActivity() {
             it.setDisplayHomeAsUpEnabled(true)
             it.title = hero.name
         }
+
+        supportFragmentManager
+                .beginTransaction()
+                .add(R.id.comicsList,ComicsFragment.newInstance(hero.id))
+                .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

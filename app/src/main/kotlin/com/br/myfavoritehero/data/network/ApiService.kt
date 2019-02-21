@@ -17,4 +17,15 @@ interface ApiService {
         @Query("offset") offset: Int = 0
     ): Call<BaseResponse<Hero>>
 
+    @GET("v1/public/characters")
+    fun getComics(
+        @Query("ts") ts: Long,
+        @Query("apikey") apiKey: String,
+        @Query("hash") hash: String,
+        @Query("limit") limit: Int = 50,
+        @Query("offset") offset: Int = 0
+    ): Call<BaseResponse<Hero>>
+
+
+
 }
