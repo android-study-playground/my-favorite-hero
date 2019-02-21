@@ -16,15 +16,15 @@ jobs:
 #    - run:
 #        name: listing folder
 #        command: ls -a
-    - run:
-        name: Creating API credentials file
-        command: touch ~/.gradle/gradle.properties
-    - run:
-        name: PUTTING PUBLIC API KEY
-        command: echo marvelPublicKey=0000 >> ~/.gradle/gradle.properties
-    - run:
-        name: PUTTING PRIVATE API KEY
-        command: echo marvelPrivateKey=0000 >> ~/.gradle/gradle.properties
+#    - run:
+#        name: Creating API credentials file
+#        command: touch ~/.gradle/gradle.properties
+#    - run:
+#        name: PUTTING PUBLIC API KEY
+#        command: echo marvelPublicKey=0000 >> ~/.gradle/gradle.properties
+#    - run:
+#        name: PUTTING PRIVATE API KEY
+#        command: echo marvelPrivateKey=0000 >> ~/.gradle/gradle.properties
     - run:
         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
         command: sudo chmod +x ./gradlew
