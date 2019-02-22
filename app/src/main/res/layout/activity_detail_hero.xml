@@ -29,12 +29,13 @@
                 android:id="@+id/heroImage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_200"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/spider_man_cover"
                 android:scaleType="centerCrop"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:theme="@style/ToolBarStyle"
+                app:title="@string/hero_name"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"/>
@@ -88,6 +89,7 @@
                 android:id="@+id/comicsList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
