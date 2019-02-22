@@ -12,8 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="223dp"
             android:layout_gravity="center"
-            android:src="@drawable/generic_error"
-    />
+            android:src="@drawable/generic_error" />
 
     <TextView
             android:layout_width="match_parent"
