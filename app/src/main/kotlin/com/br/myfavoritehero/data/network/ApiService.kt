@@ -1,6 +1,7 @@
 package com.br.myfavoritehero.data.network
 
 import com.br.myfavoritehero.base.BaseResponse
+import com.br.myfavoritehero.data.models.Comic
 import com.br.myfavoritehero.data.models.Hero
 import retrofit2.Call
 import retrofit2.http.GET
@@ -17,15 +18,14 @@ interface ApiService {
         @Query("offset") offset: Int = 0
     ): Call<BaseResponse<Hero>>
 
-    @GET("v1/public/characters")
+    @GET("v1/public/comics")
     fun getComics(
         @Query("ts") ts: Long,
         @Query("apikey") apiKey: String,
         @Query("hash") hash: String,
+        @Query("characters") characters: String = "",
         @Query("limit") limit: Int = 50,
         @Query("offset") offset: Int = 0
-    ): Call<BaseResponse<Hero>>
-
-
+    ): Call<BaseResponse<Comic>>
 
 }

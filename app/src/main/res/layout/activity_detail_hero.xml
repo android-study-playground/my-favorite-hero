@@ -43,6 +43,18 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_favorite_hero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:src="@drawable/favorite"
+        app:backgroundTint="@color/white"
+        app:elevation="@dimen/fab_elevation"
+        app:fabSize="normal"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end" />
+
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -54,11 +66,12 @@
                 android:layout_height="match_parent">
 
             <TextView
+                    android:layout_marginTop="@dimen/margin_default"
                     android:layout_marginLeft="@dimen/margin_default"
                     android:layout_marginRight="@dimen/margin_default"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/description"
+                    android:text="@string/history"
                     android:textAppearance="@style/TextAppearance.AppCompat"/>
 
             <TextView
@@ -70,22 +83,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/app_name"
                     android:textAppearance="@style/AppTheme.simpleText"/>
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/darker_gray"
-                    android:layout_marginTop="@dimen/margin_default"
-                    android:layout_marginBottom="@dimen/margin_default"
-                    android:layout_marginLeft="@dimen/margin_default"
-                    android:layout_marginRight="@dimen/margin_default" />
-
-            <TextView
-                    android:layout_marginLeft="@dimen/margin_default"
-                    android:layout_marginRight="@dimen/margin_default"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/comics"
-                    android:textAppearance="@style/TextAppearance.AppCompat"/>
 
             <FrameLayout
                 android:id="@+id/comicsList"
@@ -94,8 +91,6 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

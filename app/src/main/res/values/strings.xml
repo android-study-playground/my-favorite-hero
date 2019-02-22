@@ -16,8 +16,13 @@
 
     <string name="hero_name">Stan Lee</string>
 
+    <string name="comic_name">Amazing Spider Man</string>
+    <string name="comic_description">Spider man Spider man Spider man Spider man Spider man Spider man</string>
+    <string name="comic_image_description">Comic image cover</string>
+
     <string name="comics">Revistas</string>
     <string name="description">Descrição</string>
+    <string name="history">História</string>
 
     <!-- FAVORITE, HATE STRINGS -->
     <string name="favorite">Favoritar</string>
