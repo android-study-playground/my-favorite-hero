@@ -23,6 +23,8 @@
     <string name="comics">Revistas</string>
     <string name="description">Descrição</string>
     <string name="history">História</string>
+    <string name="heroes">Heróis</string>
+
 
     <!-- FAVORITE, HATE STRINGS -->
     <string name="favorite">Favoritar</string>
@@ -35,8 +37,6 @@
     <string name="unHate">UnHate</string>
     <string name="hated">Item odiado com sucesso!</string>
     <string name="unHated">Item desodiado com sucesso!</string>
-
-
 
 
 </resources>
