@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/MatheusUehara/my-favorite-hero/tree/master.svg?style=svg)](https://circleci.com/gh/MatheusUehara/my-favorite-hero/tree/master)
+
 # My Favorite Hero
 This branch (master) is being used to study, some branches (android_basics, android_intermediate) were used to teach some students at the university - UFRPE
 
