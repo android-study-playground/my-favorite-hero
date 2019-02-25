@@ -20,7 +20,7 @@ class Repository(private val apiService: ApiService){
         val ts = (System.currentTimeMillis() / 1000)
         val hash = Util.md5(ts.toString() + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
 
-        val call = apiService.getComics(ts, BuildConfig.PUBLIC_KEY, hash, characters = characterId)
+        val call = apiService.getComics(ts, BuildConfig.PUBLIC_KEY, hash, characterId)
         Timber.d("URL: ${call.request().url()}")
         call.enqueue(
                 object: Callback<BaseResponse<Comic>> {
@@ -79,7 +79,7 @@ class Repository(private val apiService: ApiService){
         val ts = (System.currentTimeMillis() / 1000)
         val hash = Util.md5(ts.toString() + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
 
-        val call = apiService.getHeroes(ts, BuildConfig.PUBLIC_KEY, hash, 50, offset)
+        val call = apiService.getHeroes(ts, BuildConfig.PUBLIC_KEY, hash, offset)
         Timber.d( "URL: ${call.request().url()}")
         call.enqueue(
             object: Callback<BaseResponse<Hero>> {

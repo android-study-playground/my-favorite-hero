@@ -14,24 +14,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/FavoriteHeroBase"
-        tools:ignore="GoogleAppIndexingWarning" >
-        <activity
-            android:name=".features.bottomNavigation.BottomNavigationActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".SplashActivity"
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".features.home.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity
             android:name=".features.heroDetails.DetailHeroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".features.listCharacter.ListHeroesActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@
     <string name="description">Descrição</string>
     <string name="history">História</string>
     <string name="heroes">Heróis</string>
+    <string name="search">Digite algo para pesquisar</string>
 
 
     <!-- FAVORITE, HATE STRINGS -->

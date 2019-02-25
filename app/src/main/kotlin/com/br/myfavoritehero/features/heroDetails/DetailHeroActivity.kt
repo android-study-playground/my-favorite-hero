@@ -61,7 +61,7 @@ class DetailHeroActivity : AppCompatActivity() {
         if (favorited) {
             fab_favorite_hero.setImageResource(R.drawable.un_favorite)
         }else{
-            fab_favorite_hero.setImageResource(R.drawable.favorite)
+            fab_favorite_hero.setImageResource(R.drawable.un_favorite)
         }
     }
 

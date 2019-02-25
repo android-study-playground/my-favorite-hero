@@ -11,21 +11,21 @@ interface ApiService {
 
     @GET("v1/public/characters")
     fun getHeroes(
-        @Query("ts") ts: Long,
-        @Query("apikey") apiKey: String,
-        @Query("hash") hash: String,
-        @Query("limit") limit: Int = 50,
-        @Query("offset") offset: Int = 0
+            @Query("ts") ts: Long,
+            @Query("apikey") apiKey: String,
+            @Query("hash") hash: String,
+            @Query("offset") offset: Int = 0,
+            @Query("limit") limit: Int = 20
     ): Call<BaseResponse<Hero>>
 
     @GET("v1/public/comics")
     fun getComics(
-        @Query("ts") ts: Long,
-        @Query("apikey") apiKey: String,
-        @Query("hash") hash: String,
-        @Query("characters") characters: String = "",
-        @Query("limit") limit: Int = 50,
-        @Query("offset") offset: Int = 0
+            @Query("ts") ts: Long,
+            @Query("apikey") apiKey: String,
+            @Query("hash") hash: String,
+            @Query("characters") characters: String = "",
+            @Query("offset") offset: Int = 0,
+            @Query("limit") limit: Int = 20
     ): Call<BaseResponse<Comic>>
 
 }

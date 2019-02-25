@@ -3,9 +3,9 @@ package com.br.myfavoritehero.features.listCharacter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.HeroEventListener
+import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.util.getLargeLandscapeThumbnail
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.hero_item.view.*
@@ -62,6 +62,10 @@ class HeroAdapter(
     fun stopLoading(){
         isLoading = false
         notifyDataSetChanged()
+    }
+
+    fun isLoading(): Boolean{
+        return isLoading
     }
 
     fun updateUI(elements: ArrayList<Hero>){
