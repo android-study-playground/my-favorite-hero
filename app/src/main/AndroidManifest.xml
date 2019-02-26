@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/FavoriteHeroBase"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SplashActivity"
+        <activity android:name=".features.splash.SplashActivity"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
