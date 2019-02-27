@@ -5,6 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.br.myfavoritehero.R
+import com.br.myfavoritehero.features.listCharacter.FavoriteHeroesFragment
 import com.br.myfavoritehero.features.listCharacter.ListHeroesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_bottom_navigation.*
@@ -23,10 +24,10 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.heroes -> {
-
+                fragment = ListHeroesFragment.newInstance()
             }
             R.id.favorite -> {
-
+                fragment = FavoriteHeroesFragment.newInstance()
             }
         }
         switchFragment()

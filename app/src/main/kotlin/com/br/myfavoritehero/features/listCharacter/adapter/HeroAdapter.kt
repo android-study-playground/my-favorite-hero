@@ -1,4 +1,4 @@
-package com.br.myfavoritehero.features.listCharacter
+package com.br.myfavoritehero.features.listCharacter.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.HeroEventListener
 import com.br.myfavoritehero.data.models.Hero
+import com.br.myfavoritehero.features.listCharacter.viewHolder.HeroLoadingViewHolder
+import com.br.myfavoritehero.features.listCharacter.viewHolder.HeroViewHolder
 import com.br.myfavoritehero.util.getLargeLandscapeThumbnail
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.hero_item.view.*

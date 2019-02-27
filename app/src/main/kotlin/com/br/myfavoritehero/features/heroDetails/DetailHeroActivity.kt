@@ -4,19 +4,20 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.br.myfavoritehero.R
+import com.br.myfavoritehero.data.dao.HeroDao
 import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.features.listComics.ComicsFragment
 import com.br.myfavoritehero.util.Constants.HERO
-import com.br.myfavoritehero.util.SharedPreferencesHelper
 import com.br.myfavoritehero.util.getLargeLandscapeThumbnail
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail_hero.*
+import org.koin.android.ext.android.inject
 
 class DetailHeroActivity : AppCompatActivity() {
 
     private lateinit var hero : Hero
-    private var favorited : Boolean = false
+    private val heroDao : HeroDao by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +29,6 @@ class DetailHeroActivity : AppCompatActivity() {
         Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail()).into(heroImage)
         description.text = hero.description
 
-        favorited = SharedPreferencesHelper.isFavorited(this,hero.id)
-
         supportActionBar?.let{
             it.setDisplayHomeAsUpEnabled(true)
             it.title = hero.name
@@ -38,16 +37,14 @@ class DetailHeroActivity : AppCompatActivity() {
         switchVisibility()
 
         fab_favorite_hero.setOnClickListener{
-            if (favorited) {
-                SharedPreferencesHelper.setFavorite(this, hero.id, false)
+            if (hero.isFavorite) {
+                hero.isFavorite = !hero.isFavorite
                 Snackbar.make(scroll_view, R.string.unFavorited, Snackbar.LENGTH_SHORT).show()
-                favorited = !favorited
             }else{
-                fab_favorite_hero.setImageResource(R.drawable.un_favorite)
-                SharedPreferencesHelper.setFavorite(this,hero.id)
+                hero.isFavorite = !hero.isFavorite
                 Snackbar.make(scroll_view, R.string.favorited, Snackbar.LENGTH_SHORT).show()
-                favorited = !favorited
             }
+            heroDao.save(hero)
             switchVisibility()
         }
 
@@ -58,10 +55,10 @@ class DetailHeroActivity : AppCompatActivity() {
     }
 
     private fun switchVisibility(){
-        if (favorited) {
+        if (hero.isFavorite) {
             fab_favorite_hero.setImageResource(R.drawable.un_favorite)
         }else{
-            fab_favorite_hero.setImageResource(R.drawable.un_favorite)
+            fab_favorite_hero.setImageResource(R.drawable.favorite)
         }
     }
 

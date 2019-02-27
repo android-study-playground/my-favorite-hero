@@ -14,6 +14,8 @@ import com.br.myfavoritehero.data.interfaces.HeroEventListener
 import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.data.models.ViewStateModel
 import com.br.myfavoritehero.features.heroDetails.DetailHeroActivity
+import com.br.myfavoritehero.features.listCharacter.adapter.HeroAdapter
+import com.br.myfavoritehero.features.listCharacter.viewModel.ListHeroesViewModel
 import com.br.myfavoritehero.util.Constants.HERO
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_list_heroes.*

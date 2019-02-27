@@ -1,4 +1,4 @@
-package com.br.myfavoritehero.features.listCharacter
+package com.br.myfavoritehero.features.listCharacter.viewHolder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
