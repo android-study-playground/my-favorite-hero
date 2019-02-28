@@ -12,12 +12,16 @@ import timber.log.Timber
 
 class Repository(private val apiService: ApiService){
 
+    companion object {
+        const val ONE_SECOND = 1000
+    }
+
     fun getComics(
             characterId: String = "",
             success: (base: BaseResponse<Comic>) -> Unit,
             error: (t: Throwable) -> Unit
     ){
-        val ts = (System.currentTimeMillis() / 1000)
+        val ts = (System.currentTimeMillis() / ONE_SECOND)
         val hash = Util.md5(ts.toString() + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
 
         val call = apiService.getComics(ts, BuildConfig.PUBLIC_KEY, hash, characters = characterId)
@@ -46,7 +50,7 @@ class Repository(private val apiService: ApiService){
         success: (base: BaseResponse<Hero>) -> Unit,
         error: (t: Throwable) -> Unit
     ){
-        val ts = (System.currentTimeMillis() / 1000)
+        val ts = (System.currentTimeMillis() / ONE_SECOND)
         val hash = Util.md5(ts.toString() + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
 
         val call = apiService.getHeroes(ts, BuildConfig.PUBLIC_KEY, hash)
@@ -76,7 +80,7 @@ class Repository(private val apiService: ApiService){
         error: (t: Throwable) -> Unit,
         offset: Int
     ){
-        val ts = (System.currentTimeMillis() / 1000)
+        val ts = (System.currentTimeMillis() / ONE_SECOND)
         val hash = Util.md5(ts.toString() + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
 
         val call = apiService.getHeroes(ts, BuildConfig.PUBLIC_KEY, hash, 50, offset)
