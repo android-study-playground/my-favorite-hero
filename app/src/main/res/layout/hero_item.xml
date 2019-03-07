@@ -28,7 +28,7 @@
         <TextView
                 android:id="@+id/heroName"
                 android:text="@string/hero_name"
-                android:maxLines="@dimen/lines_1"
+                android:maxLines="1"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
@@ -58,5 +58,5 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
- </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>
 

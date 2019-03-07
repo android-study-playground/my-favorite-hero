@@ -10,8 +10,6 @@
     <dimen name="dp_130">130dp</dimen>
     <dimen name="dp_200">200dp</dimen>
     <dimen name="margin_default">6dp</dimen>
-    <dimen name="lines_1">1</dimen>
-    <dimen name="lines_3">3</dimen>
     <dimen name="corner_radius">6</dimen>
     <dimen name="padding">12dp</dimen>
     <dimen name="fab_elevation">10dp</dimen>

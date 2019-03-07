@@ -30,7 +30,7 @@
         android:layout_marginEnd="@dimen/margin_default"
         android:layout_marginRight="@dimen/margin_default"
         android:ellipsize="end"
-        android:maxLines="@dimen/lines_1"
+        android:maxLines="1"
         android:background="@color/shimmer_background"
         android:textAppearance="@style/AppTheme.TitleText"
         app:layout_constraintEnd_toEndOf="parent"
