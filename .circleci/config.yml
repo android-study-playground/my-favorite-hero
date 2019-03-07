@@ -15,10 +15,10 @@ jobs:
         command: touch gradle.properties
     - run:
         name: PUTTING PUBLIC API KEY
-        command: echo marvelPublicKey=0000 >> gradle.properties
+        command: echo marvelPublicKey="0000" >> gradle.properties
     - run:
         name: PUTTING PRIVATE API KEY
-        command: echo marvelPrivateKey=0000 >> gradle.properties
+        command: echo marvelPrivateKey="0000" >> gradle.properties
     - run:
         name: ACCEPTING ANDROID LICENSES #if permission for Gradlew Dependencies fail, use this.
         command: yes | sdkmanager --licenses || exit 0
