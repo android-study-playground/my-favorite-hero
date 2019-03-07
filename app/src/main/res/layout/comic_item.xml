@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/comicTitle"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginLeft="@dimen/margin_default"
@@ -29,7 +29,7 @@
         android:layout_marginEnd="@dimen/margin_default"
         android:layout_marginRight="@dimen/margin_default"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:maxLines="@dimen/lines_1"
         android:text="@string/comic_name"
         android:textAppearance="@style/AppTheme.TitleText"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,9 +38,9 @@
 
     <TextView
         android:id="@+id/comicDescription"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:maxLines="3"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:maxLines="@dimen/lines_3"
         android:ellipsize="end"
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginLeft="@dimen/margin_default"

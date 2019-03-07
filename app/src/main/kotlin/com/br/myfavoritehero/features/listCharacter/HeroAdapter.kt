@@ -3,13 +3,14 @@ package com.br.myfavoritehero.features.listCharacter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.HeroEventListener
+import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.util.getLargeLandscapeThumbnail
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.hero_item.view.*
-import kotlinx.android.synthetic.main.hero_list_loading.view.*
+import kotlinx.android.synthetic.main.hero_item.view.heroCardImage
+import kotlinx.android.synthetic.main.hero_item.view.heroName
+import kotlinx.android.synthetic.main.hero_list_loading.view.shimmer_view_container
 
 class HeroAdapter(
     private val elements: ArrayList<Hero>,
@@ -35,12 +36,10 @@ class HeroAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is HeroViewHolder){
-            elements.let {
-                val hero = it[position]
-                Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail()).into(holder.mLinearLayout.heroCardImage)
-                holder.mLinearLayout.heroName.text = hero.name
-                holder.mLinearLayout.setOnClickListener { listener.onHeroClicked(hero) }
-            }
+            val hero = elements[position]
+            Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail()).into(holder.mLinearLayout.heroCardImage)
+            holder.mLinearLayout.heroName.text = hero.name
+            holder.mLinearLayout.setOnClickListener { listener.onHeroClicked(hero) }
         }else if (holder is HeroLoadingViewHolder){
             holder.mLinearLayoutLoading.shimmer_view_container.startShimmerAnimation()
         }

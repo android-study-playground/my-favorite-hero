@@ -14,9 +14,10 @@ import com.br.myfavoritehero.features.heroDetails.DetailHeroActivity
 import com.br.myfavoritehero.features.listener.EndlessScrollListener
 import com.br.myfavoritehero.util.Constants.HERO
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_list_heroes.*
-import kotlinx.android.synthetic.main.generic_error_screen.*
-import kotlinx.android.synthetic.main.hero_list_loading.*
+import kotlinx.android.synthetic.main.activity_list_heroes.listHeroes
+import kotlinx.android.synthetic.main.activity_list_heroes.activity_list_heroes
+import kotlinx.android.synthetic.main.generic_error_screen.error_screen
+import kotlinx.android.synthetic.main.hero_list_loading.shimmer_view_container
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import com.br.myfavoritehero.R

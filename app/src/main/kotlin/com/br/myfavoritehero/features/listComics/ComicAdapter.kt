@@ -8,7 +8,10 @@ import com.br.myfavoritehero.data.interfaces.ComicEventListener
 import com.br.myfavoritehero.data.models.Comic
 import com.br.myfavoritehero.util.getLargePortraitThumbnail
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.comic_item.view.*
+import kotlinx.android.synthetic.main.comic_item.view.comicTitle
+import kotlinx.android.synthetic.main.comic_item.view.comicImage
+import kotlinx.android.synthetic.main.comic_item.view.comicDescription
+
 
 class ComicAdapter(
         private val elements: ArrayList<Comic>,
