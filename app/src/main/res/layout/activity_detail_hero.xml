@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.br.myfavoritehero.features.heroDetails.DetailHeroActivity"
-    android:id="@+id/scroll_view">
+    android:id="@+id/scroll_view"
+    tools:context="com.br.myfavoritehero.features.heroDetails.DetailHeroActivity">
 
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
@@ -35,9 +35,9 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:theme="@style/ToolBarStyle"
-                app:title="@string/hero_name"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:title="@string/hero_name"
                 app:layout_collapseMode="pin"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -82,8 +82,8 @@
                     android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_name"
-                    android:textAppearance="@style/AppTheme.simpleText"/>
+                    android:textAppearance="@style/AppTheme.simpleText"
+                    tools:text="@string/app_name"/>
 
             <FrameLayout
                 android:id="@+id/comicsList"

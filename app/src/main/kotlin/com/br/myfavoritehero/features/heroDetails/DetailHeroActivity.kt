@@ -11,7 +11,11 @@ import com.br.myfavoritehero.util.SharedPreferencesHelper
 import com.br.myfavoritehero.util.getLargeLandscapeThumbnail
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_detail_hero.*
+import kotlinx.android.synthetic.main.activity_detail_hero.fab_favorite_hero
+import kotlinx.android.synthetic.main.activity_detail_hero.toolbar
+import kotlinx.android.synthetic.main.activity_detail_hero.heroImage
+import kotlinx.android.synthetic.main.activity_detail_hero.description
+import kotlinx.android.synthetic.main.activity_detail_hero.scroll_view
 
 class DetailHeroActivity : AppCompatActivity() {
 

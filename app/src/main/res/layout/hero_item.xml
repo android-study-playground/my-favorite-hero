@@ -16,7 +16,7 @@
 
         <ImageView
                 android:id="@+id/heroCardImage"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="@dimen/dp_200"
                 android:scaleType="centerCrop"
                 android:src="@drawable/spider_man_cover"
@@ -30,7 +30,7 @@
                 android:text="@string/hero_name"
                 android:maxLines="1"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dp_0"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:padding="@dimen/padding"
@@ -45,7 +45,7 @@
         <ImageButton
                 android:id="@+id/favoriteIcon"
                 android:layout_width="@dimen/dp_40"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/dp_0"
                 android:background="@color/transparent"
                 android:src="@drawable/un_favorite"
                 android:tint="@color/primaryColor"
@@ -58,5 +58,5 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
- </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>
 
