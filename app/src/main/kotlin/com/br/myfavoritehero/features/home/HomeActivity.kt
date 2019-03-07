@@ -1,44 +1,17 @@
 package com.br.myfavoritehero.features.home
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.ui.setupWithNavController
 import com.br.myfavoritehero.R
-import com.br.myfavoritehero.features.listCharacter.ListHeroesFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_bottom_navigation.*
+import kotlinx.android.synthetic.main.activity_bottom_navigation.navigation
 
-class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
-
-    private var fragment: Fragment =  ListHeroesFragment.newInstance()
+class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_navigation)
-        navigationView.setOnNavigationItemSelectedListener(this)
-        switchFragment()
+        navigation.setupWithNavController(Navigation.findNavController(this, R.id.my_nav_host_fragment))
     }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.heroes -> {
-
-            }
-            R.id.favorite -> {
-
-            }
-        }
-        switchFragment()
-        return true
-    }
-
-    private fun switchFragment(){
-        supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations( android.R.anim.fade_in, android.R.anim.fade_out )
-                .replace(R.id.container, fragment)
-                .commit()
-    }
-
 }

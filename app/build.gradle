@@ -60,6 +60,10 @@ dependencies {
     //Timber
     implementation "com.jakewharton.timber:timber:$timber"
 
+    //Navigation
+    implementation "android.arch.navigation:navigation-fragment-ktx:$navigation"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navigation"
+
     //Shimmer
     implementation "com.facebook.shimmer:shimmer:$shimmer"
 

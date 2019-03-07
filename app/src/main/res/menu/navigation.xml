@@ -4,17 +4,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-            android:id="@+id/heroes"
-            android:icon="@drawable/heroes"
-            android:orderInCategory="100"
-            android:title="@string/heroes"
-            app:showAsAction="ifRoom"/>
+        android:id="@+id/listHeroesFragment"
+        android:icon="@drawable/heroes"
+        android:orderInCategory="100"
+        android:title="@string/heroes"
+        app:showAsAction="ifRoom" />
 
-    <item
-            android:id="@+id/favorite"
-            android:icon="@drawable/un_favorite"
-            android:orderInCategory="100"
-            android:title="@string/favorite"
-            app:showAsAction="ifRoom"/>
+    <!--<item-->
+        <!--android:id="@+id/favorite"-->
+        <!--android:icon="@drawable/un_favorite"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/favorite"-->
+        <!--app:showAsAction="ifRoom"/>-->
 
 </menu>

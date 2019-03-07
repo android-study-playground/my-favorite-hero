@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.comic_list_loading.shimmer_view_container
 import kotlinx.android.synthetic.main.comics_fragment.comics_label
 import kotlinx.android.synthetic.main.comics_fragment.comics_divider
 import kotlinx.android.synthetic.main.comics_fragment.comics_list
-
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
