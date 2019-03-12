@@ -2,28 +2,55 @@ package com.br.myfavoritehero.data.request
 
 import com.br.myfavoritehero.BuildConfig
 import com.br.myfavoritehero.base.BaseResponse
+import com.br.myfavoritehero.data.models.Comic
 import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.data.network.ApiService
-import com.br.myfavoritehero.util.Constants.READ_TIMEOUT
 import com.br.myfavoritehero.util.Util
-import com.google.gson.Gson
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import com.br.myfavoritehero.util.Constants.CONNECTION_TIMEOUT
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 class Repository(private val apiService: ApiService){
+
+    companion object {
+        const val ONE_SECOND = 1000
+    }
+
+    fun getComics(
+            characterId: String = "",
+            success: (base: BaseResponse<Comic>) -> Unit,
+            error: (t: Throwable) -> Unit
+    ){
+        val ts = (System.currentTimeMillis() / ONE_SECOND)
+        val hash = Util.md5(ts.toString() + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
+
+        val call = apiService.getComics(ts, BuildConfig.PUBLIC_KEY, hash, characters = characterId)
+        Timber.d("URL: ${call.request().url()}")
+        call.enqueue(
+                object: Callback<BaseResponse<Comic>> {
+                    override fun onFailure(call: Call<BaseResponse<Comic>>, t: Throwable) {
+                        error(t)
+                    }
+
+                    override fun onResponse(
+                            call: Call<BaseResponse<Comic>>,
+                            baseResponse: retrofit2.Response<BaseResponse<Comic>>
+                    ) {
+                        if(baseResponse.code() == 200) {
+                            success(baseResponse.body()!!)
+                        }else{
+                            error(Throwable())
+                        }
+                    }
+                }
+        )
+    }
 
     fun getHeroes(
         success: (base: BaseResponse<Hero>) -> Unit,
         error: (t: Throwable) -> Unit
     ){
-        val ts = (System.currentTimeMillis() / 1000)
+        val ts = (System.currentTimeMillis() / ONE_SECOND)
         val hash = Util.md5(ts.toString() + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
 
         val call = apiService.getHeroes(ts, BuildConfig.PUBLIC_KEY, hash)
@@ -53,7 +80,7 @@ class Repository(private val apiService: ApiService){
         error: (t: Throwable) -> Unit,
         offset: Int
     ){
-        val ts = (System.currentTimeMillis() / 1000)
+        val ts = (System.currentTimeMillis() / ONE_SECOND)
         val hash = Util.md5(ts.toString() + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
 
         val call = apiService.getHeroes(ts, BuildConfig.PUBLIC_KEY, hash, 50, offset)

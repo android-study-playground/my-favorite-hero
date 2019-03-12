@@ -4,7 +4,7 @@
         mais tarde!
     </string>
     <string name="error_dialog_title">Sorry, estamos passando por dificuldades! :(</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="unknow_error">Aconteceu um erro e estamos correndo para solucionar, tente novamente mais tarde!
     </string>
     <string name="no_internet_connection">Parece que você está sem internet, você poderia ligá-lá para podermos
@@ -14,7 +14,15 @@
         isso, você poderia voltar outra hora?
     </string>
 
-    <string name="hero_name">Stan Lee</string>
+    <string name="hero_name">Spider Man</string>
+
+    <string name="comic_name">Amazing Spider Man</string>
+    <string name="comic_description">Spider man Spider man Spider man Spider man Spider man Spider man</string>
+    <string name="comic_image_description">Comic image cover</string>
+
+    <string name="comics">Revistas</string>
+    <string name="description">Descrição</string>
+    <string name="history">História</string>
 
     <!-- FAVORITE, HATE STRINGS -->
     <string name="favorite">Favoritar</string>

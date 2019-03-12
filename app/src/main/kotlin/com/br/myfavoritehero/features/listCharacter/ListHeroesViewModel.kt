@@ -19,7 +19,7 @@ class ListHeroesViewModel(private val repository: Repository): BaseViewModel() {
         viewStateResponse.postValue(ViewStateModel(ViewStateModel.Status.LOADING))
         repository.getHeroes(
             { base ->
-                viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.SUCCESS, model = base.data.results as ArrayList<Hero>))
+                viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.SUCCESS, model = base.data.results))
             }, {error ->
                 viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.ERROR, errors = notKnownError(error)))
             }
@@ -30,7 +30,7 @@ class ListHeroesViewModel(private val repository: Repository): BaseViewModel() {
         viewStateResponseLoadMore.postValue(ViewStateModel(ViewStateModel.Status.LOADING))
         repository.loadMore(
             { base ->
-                viewStateResponseLoadMore.postValue(ViewStateModel(status = ViewStateModel.Status.SUCCESS, model = base.data.results as ArrayList<Hero>))
+                viewStateResponseLoadMore.postValue(ViewStateModel(status = ViewStateModel.Status.SUCCESS, model = base.data.results))
             }, {error ->
                 viewStateResponseLoadMore.postValue(ViewStateModel(status = ViewStateModel.Status.ERROR, errors = notKnownError(error)))
             },
