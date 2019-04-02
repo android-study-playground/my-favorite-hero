@@ -17,6 +17,7 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
+        debug { assets.srcDirs = ['src/debug/assets', 'src/debug/assets/'] }
     }
 
     buildTypes {
@@ -38,6 +39,14 @@ android {
             }
         }
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
+    sourceSets.test.resources.srcDirs += ["src/debug/assets"]
 }
 
 androidExtensions {
@@ -77,8 +86,8 @@ dependencies {
 
     //Rx
     implementation "com.squareup.retrofit2:adapter-rxjava2:$adapter_rxjava2"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
-    implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rx_kotlin"
 
     //AndroidX ViewModel/LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_extensions"
@@ -87,6 +96,11 @@ dependencies {
     //Unit Test
     implementation "androidx.legacy:legacy-support-v4:$legacy_support_v4"
     testImplementation "junit:junit:$junit"
+    testImplementation "android.arch.core:core-testing:$core_testing"
+    testImplementation "org.koin:koin-test:$koin_core_test"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp"
+    testImplementation "androidx.test:rules:$androidx_test"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp"
 
     //Instrumented Test
     androidTestImplementation "androidx.test:runner:$runner"
