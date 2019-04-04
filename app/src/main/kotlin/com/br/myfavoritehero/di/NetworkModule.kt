@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -28,19 +29,20 @@ val networkModule = module {
         }
 
         OkHttpClient.Builder()
-            .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
-            .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-            .addInterceptor(httpLogInterceptor)
-            .build()
+                .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+                .addInterceptor(httpLogInterceptor)
+                .build()
     }
 
     single {
         Retrofit
-            .Builder()
-            .addConverterFactory(GsonConverterFactory.create(Gson()))
-            .baseUrl(getProperty<String>(PROPERTY_BASE_URL))
-            .client(get())
-            .build()
+                .Builder()
+                .addConverterFactory(GsonConverterFactory.create(Gson()))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(getProperty<String>(PROPERTY_BASE_URL))
+                .client(get())
+                .build()
     }
 
     single {
