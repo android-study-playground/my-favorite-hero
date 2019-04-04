@@ -20,7 +20,7 @@ class ComicsViewModel(private val repository: RepositoryContract): BaseViewModel
                     viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.SUCCESS, model = base.data.results))
                 },
                 { error ->
-                    viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.ERROR, errors = notKnownError(error)))
+                    viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.ERROR, errors = errorHandler(error)))
                 }
         ))
     }

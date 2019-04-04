@@ -64,27 +64,28 @@ open class BaseViewModelTest : KoinTest {
         setResponse(responseJson, HttpURLConnection.HTTP_OK)
     }
 
-    fun mockResponseError401(responseJson: String) {
-        setResponse(responseJson, HttpURLConnection.HTTP_UNAUTHORIZED)
+    fun mockResponseError401() {
+        setResponse("mock/common/return_error_401.json", HttpURLConnection.HTTP_UNAUTHORIZED)
     }
 
-    fun mockResponseError404(responseJson: String) {
-        setResponse(responseJson, HttpURLConnection.HTTP_NOT_FOUND)
+    fun mockResponseError404() {
+        setResponse("mock/common/return_error_404.json", HttpURLConnection.HTTP_NOT_FOUND)
     }
 
-    fun mockResponseError405(responseJson: String) {
-        setResponse(responseJson, HttpURLConnection.HTTP_BAD_METHOD)
+    fun mockResponseError405() {
+        setResponse("mock/common/return_error_405.json", HttpURLConnection.HTTP_BAD_METHOD)
     }
 
-    fun mockResponseError409(responseJson: String) {
-        setResponse(responseJson, HttpURLConnection.HTTP_CONFLICT)
+    fun mockResponseError409() {
+        setResponse("mock/common/return_error_409.json", HttpURLConnection.HTTP_CONFLICT)
     }
 
     fun validateURL(regex: String,password: String): Boolean {
+        var result = true
         if (!password.contains(Regex(regex))) {
-            return false
+            result = false
         }
-        return true
+        return result
     }
 
 }

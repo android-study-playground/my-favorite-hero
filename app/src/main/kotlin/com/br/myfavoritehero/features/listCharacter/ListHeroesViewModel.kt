@@ -21,7 +21,7 @@ class ListHeroesViewModel(private val repository: RepositoryContract): BaseViewM
             { base ->
                 viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.SUCCESS, model = base.data.results))
             }, {error ->
-                viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.ERROR, errors = notKnownError(error)))
+                viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.ERROR, errors = errorHandler(error)))
             }
         ))
     }
@@ -32,7 +32,7 @@ class ListHeroesViewModel(private val repository: RepositoryContract): BaseViewM
             { base ->
                 viewStateResponseLoadMore.postValue(ViewStateModel(status = ViewStateModel.Status.SUCCESS, model = base.data.results))
             }, {error ->
-                viewStateResponseLoadMore.postValue(ViewStateModel(status = ViewStateModel.Status.ERROR, errors = notKnownError(error)))
+                viewStateResponseLoadMore.postValue(ViewStateModel(status = ViewStateModel.Status.ERROR, errors = errorHandler(error)))
             }
         ))
     }

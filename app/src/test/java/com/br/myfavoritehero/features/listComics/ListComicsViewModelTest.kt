@@ -1,8 +1,10 @@
 package com.br.myfavoritehero.features.listComics
 
+import com.br.myfavoritehero.R
 import com.br.myfavoritehero.base.BaseResponse
 import com.br.myfavoritehero.base.BaseViewModelTest
 import com.br.myfavoritehero.data.models.Comic
+import com.br.myfavoritehero.data.models.ErrorResponse
 import com.br.myfavoritehero.data.models.ViewStateModel
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -25,7 +27,7 @@ class ListComicsViewModelTest: BaseViewModelTest(){
     }
 
     @Test
-    fun checkListCharacterSuccess(){
+    fun checkListCharacterComicsSuccess(){
         mockResponse200("mock/list_comics/return_success.json")
         val responseJson = getJson("mock/list_comics/return_success.json")
         val collectionType = object : TypeToken<BaseResponse<Comic>>() {}.type
@@ -41,7 +43,102 @@ class ListComicsViewModelTest: BaseViewModelTest(){
 
         comicsViewModel.getComics().observeForever {
             actual = ViewStateModel(model = it.model, status = it.status)
-            assert(true)
+        }
+
+        comicsViewModel.loadComics(characterId)
+        Assert.assertEquals(expected, actual)
+    }
+
+    @Test
+    fun checkListCharacterComicsError401(){
+        mockResponseError401()
+        val collectionType = object : TypeToken<ErrorResponse>() {}.type
+        val responseObject: ErrorResponse = GsonBuilder()
+                .create()
+                .fromJson(getJson("mock/common/return_error_401.json"), collectionType)
+        responseObject.extra = R.string.unauthorized
+
+        val expected =
+                ViewStateModel<ArrayList<Comic>>(status = ViewStateModel.Status.ERROR,
+                        model = null,
+                        errors = responseObject)
+
+        var actual = ViewStateModel<ArrayList<Comic>>(status = ViewStateModel.Status.LOADING)
+
+        comicsViewModel.getComics().observeForever {
+            actual = it
+        }
+
+        comicsViewModel.loadComics(characterId)
+        Assert.assertEquals(expected, actual)
+    }
+
+    @Test
+    fun checkListCharacterComicsError404(){
+        mockResponseError404()
+        val collectionType = object : TypeToken<ErrorResponse>() {}.type
+        val responseObject: ErrorResponse = GsonBuilder()
+                .create()
+                .fromJson(getJson("mock/common/return_error_404.json"), collectionType)
+        responseObject.extra = R.string.unknow_error
+
+        val expected =
+                ViewStateModel<ArrayList<Comic>>(status = ViewStateModel.Status.ERROR,
+                        model = null,
+                        errors = responseObject)
+
+        var actual = ViewStateModel<ArrayList<Comic>>(status = ViewStateModel.Status.LOADING)
+
+        comicsViewModel.getComics().observeForever {
+            actual = it
+        }
+
+        comicsViewModel.loadComics(characterId)
+        Assert.assertEquals(expected, actual)
+    }
+
+    @Test
+    fun checkListCharacterComicsError405(){
+        mockResponseError405()
+        val collectionType = object : TypeToken<ErrorResponse>() {}.type
+        val responseObject: ErrorResponse = GsonBuilder()
+                .create()
+                .fromJson(getJson("mock/common/return_error_405.json"), collectionType)
+        responseObject.extra = R.string.unknow_error
+
+        val expected =
+                ViewStateModel<ArrayList<Comic>>(status = ViewStateModel.Status.ERROR,
+                        model = null,
+                        errors = responseObject)
+
+        var actual = ViewStateModel<ArrayList<Comic>>(status = ViewStateModel.Status.LOADING)
+
+        comicsViewModel.getComics().observeForever {
+            actual = it
+        }
+
+        comicsViewModel.loadComics(characterId)
+        Assert.assertEquals(expected, actual)
+    }
+
+    @Test
+    fun checkListCharacterComicsError409(){
+        mockResponseError409()
+        val collectionType = object : TypeToken<ErrorResponse>() {}.type
+        val responseObject: ErrorResponse = GsonBuilder()
+                .create()
+                .fromJson(getJson("mock/common/return_error_409.json"), collectionType)
+        responseObject.extra = R.string.unknow_error
+
+        val expected =
+                ViewStateModel<ArrayList<Comic>>(status = ViewStateModel.Status.ERROR,
+                        model = null,
+                        errors = responseObject)
+
+        var actual = ViewStateModel<ArrayList<Comic>>(status = ViewStateModel.Status.LOADING)
+
+        comicsViewModel.getComics().observeForever {
+            actual = it
         }
 
         comicsViewModel.loadComics(characterId)

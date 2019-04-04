@@ -4,6 +4,10 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.models.ErrorResponse
+import com.br.myfavoritehero.util.Constants
+import com.br.myfavoritehero.util.Constants.ERROR_NOT_CONNECTED
+import com.br.myfavoritehero.util.Constants.MESSAGE_ERROR_NOT_CONNECTED
+import com.google.gson.GsonBuilder
 import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
 import java.io.IOException
@@ -12,24 +16,41 @@ import java.net.HttpURLConnection
 abstract class BaseViewModel : ViewModel(), LifecycleObserver {
 
     protected val disposables = CompositeDisposable()
+    private val gson = GsonBuilder().create()
 
-    protected fun notKnownError(error: Throwable): ErrorResponse {
+    protected fun errorHandler(error: Throwable): ErrorResponse {
 
-        val errorResponse = ErrorResponse()
+        var errorResponse = ErrorResponse()
+
         when (error) {
             is HttpException -> {
+                errorResponse = gson.fromJson(
+                        error.response().errorBody()?.charStream(),
+                        ErrorResponse::class.java)
+
                 when (error.code()) {
-                    HttpURLConnection.HTTP_BAD_REQUEST -> {
-                        errorResponse.messageInt.add(R.string.unknow_error)
+                    HttpURLConnection.HTTP_CONFLICT -> {
+                        errorResponse.extra = R.string.unknow_error
                     }
                     HttpURLConnection.HTTP_UNAUTHORIZED -> {
-                        errorResponse.messageInt.add(R.string.unauthorized)
+                        errorResponse.extra = R.string.unauthorized
                     }
-                    else -> errorResponse.messageInt.add(R.string.unknow_error)
+                    HttpURLConnection.HTTP_NOT_FOUND -> {
+                        errorResponse.extra = R.string.unknow_error
+                    }
+                    HttpURLConnection.HTTP_BAD_METHOD -> {
+                        errorResponse.extra = R.string.unknow_error
+                    }
+                    else -> {
+                        errorResponse.extra = R.string.unknow_error
+                    }
                 }
             }
             is IOException -> {
-                errorResponse.messageInt.add(R.string.no_internet_connection)
+                errorResponse.code = ERROR_NOT_CONNECTED
+                errorResponse.status = MESSAGE_ERROR_NOT_CONNECTED
+                errorResponse.message = MESSAGE_ERROR_NOT_CONNECTED
+                errorResponse.extra = R.string.no_internet_connection
             }
         }
 
