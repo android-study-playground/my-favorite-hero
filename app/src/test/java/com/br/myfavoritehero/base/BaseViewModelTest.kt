@@ -16,19 +16,18 @@ import org.koin.standalone.StandAloneContext
 import org.koin.test.KoinTest
 import java.net.HttpURLConnection
 
-abstract class BaseViewModelTest : KoinTest {
+open class BaseViewModelTest : KoinTest {
 
     var mockServer: MockWebServer = MockWebServer()
 
     @get:Rule
-    var rule = InstantTaskExecutorRule()
+    var rxRule = RxImmediateSchedulerRule()
 
     @get:Rule
-    var rxRule = RxImmediateSchedulerRule()
+    var rule = InstantTaskExecutorRule()
 
     @Before
     @Throws fun setUp() {
-
         StandAloneContext.startKoin(
                 listOf(
                         networkModule,
@@ -54,32 +53,38 @@ abstract class BaseViewModelTest : KoinTest {
         )?.readText()
     }
 
-    private fun setResponse(responseJson: String?, code: Int) {
+    private fun setResponse(responseJson: String, code: Int) {
         val mockResponse = MockResponse()
                 .setResponseCode(code)
-        responseJson?.let {
-            mockResponse.setBody(responseJson)
-        }
+                .setBody(getJson(responseJson))
         mockServer.enqueue(mockResponse)
     }
 
-    fun mockResponse200(responseJson: String?) {
+    fun mockResponse200(responseJson: String) {
         setResponse(responseJson, HttpURLConnection.HTTP_OK)
     }
 
-    fun mockResponse201(responseJson: String?) {
-        setResponse(responseJson, HttpURLConnection.HTTP_CREATED)
-    }
-
-    fun mockResponseError400(responseJson: String?) {
-        setResponse(responseJson, HttpURLConnection.HTTP_BAD_REQUEST)
-    }
-
-    fun mockResponseError401(responseJson: String?) {
+    fun mockResponseError401(responseJson: String) {
         setResponse(responseJson, HttpURLConnection.HTTP_UNAUTHORIZED)
     }
 
-    fun mockResponseError404(responseJson: String?) {
+    fun mockResponseError404(responseJson: String) {
         setResponse(responseJson, HttpURLConnection.HTTP_NOT_FOUND)
     }
+
+    fun mockResponseError405(responseJson: String) {
+        setResponse(responseJson, HttpURLConnection.HTTP_BAD_METHOD)
+    }
+
+    fun mockResponseError409(responseJson: String) {
+        setResponse(responseJson, HttpURLConnection.HTTP_CONFLICT)
+    }
+
+    fun validateURL(regex: String,password: String): Boolean {
+        if (!password.contains(Regex(regex))) {
+            return false
+        }
+        return true
+    }
+
 }
