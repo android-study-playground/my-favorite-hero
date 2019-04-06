@@ -4,11 +4,14 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.models.ErrorResponse
+import io.reactivex.disposables.CompositeDisposable
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.HttpURLConnection
 
 abstract class BaseViewModel : ViewModel(), LifecycleObserver {
+
+    protected val disposables = CompositeDisposable()
 
     protected fun notKnownError(error: Throwable): ErrorResponse {
 
@@ -31,6 +34,11 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
         }
 
         return errorResponse
+    }
+
+    override fun onCleared() {
+        disposables.dispose()
+        super.onCleared()
     }
 
 }

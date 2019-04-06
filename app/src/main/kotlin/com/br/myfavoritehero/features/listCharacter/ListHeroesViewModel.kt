@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import com.br.myfavoritehero.base.BaseViewModel
 import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.data.models.ViewStateModel
-import com.br.myfavoritehero.data.request.Repository
+import com.br.myfavoritehero.data.request.RepositoryContract
 
-class ListHeroesViewModel(private val repository: Repository): BaseViewModel() {
+class ListHeroesViewModel(private val repository: RepositoryContract): BaseViewModel() {
 
     private val viewStateResponse: MutableLiveData<ViewStateModel<ArrayList<Hero>>> = MutableLiveData()
     private val viewStateResponseLoadMore: MutableLiveData<ViewStateModel<ArrayList<Hero>>> = MutableLiveData()
@@ -17,25 +17,24 @@ class ListHeroesViewModel(private val repository: Repository): BaseViewModel() {
 
     fun loadHeroes(){
         viewStateResponse.postValue(ViewStateModel(ViewStateModel.Status.LOADING))
-        repository.getHeroes(
+        disposables.add(repository.getHeroes().subscribe(
             { base ->
                 viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.SUCCESS, model = base.data.results))
             }, {error ->
                 viewStateResponse.postValue(ViewStateModel(status = ViewStateModel.Status.ERROR, errors = notKnownError(error)))
             }
-        )
+        ))
     }
 
     fun loadMore(offset: Int){
         viewStateResponseLoadMore.postValue(ViewStateModel(ViewStateModel.Status.LOADING))
-        repository.loadMore(
+        disposables.add(repository.loadMore(offset).subscribe(
             { base ->
                 viewStateResponseLoadMore.postValue(ViewStateModel(status = ViewStateModel.Status.SUCCESS, model = base.data.results))
             }, {error ->
                 viewStateResponseLoadMore.postValue(ViewStateModel(status = ViewStateModel.Status.ERROR, errors = notKnownError(error)))
-            },
-            offset
-        )
+            }
+        ))
     }
 
 }

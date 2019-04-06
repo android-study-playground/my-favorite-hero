@@ -30,4 +30,7 @@ object Constants {
     const val type = ".jpg"
     const val separator = "/"
 
+    const val ONE_SECOND = 1000
+    const val LIMIT = 50
+
 }
