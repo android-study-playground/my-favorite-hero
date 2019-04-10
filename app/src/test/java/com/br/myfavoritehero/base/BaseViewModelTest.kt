@@ -10,12 +10,14 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.koin.core.KoinProperties
 import org.koin.standalone.StandAloneContext
 import org.koin.test.KoinTest
 import java.net.HttpURLConnection
 
+@Ignore
 open class BaseViewModelTest : KoinTest {
 
     var mockServer: MockWebServer = MockWebServer()
