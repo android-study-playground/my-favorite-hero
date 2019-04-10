@@ -12,8 +12,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Rule
-import org.koin.core.KoinProperties
-import org.koin.standalone.StandAloneContext
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import java.net.HttpURLConnection
 
@@ -30,20 +30,23 @@ open class BaseViewModelTest : KoinTest {
 
     @Before
     @Throws fun setUp() {
-        StandAloneContext.startKoin(
-                listOf(
-                        networkModule,
-                        repositoryModule,
-                        viewModelModule
-                ), properties = KoinProperties(extraProperties = mapOf(PROPERTY_BASE_URL to "http://localhost:8080/"))
-        )
+
+        startKoin {
+            modules(listOf(
+                    viewModelModule,
+                    repositoryModule,
+                    networkModule
+            ))
+
+            properties((mapOf(PROPERTY_BASE_URL to "http://localhost:8080/")))
+        }
 
         mockServer.start(8080)
     }
 
     @After
     @Throws fun tearDown() {
-        StandAloneContext.stopKoin()
+        stopKoin()
         mockServer.shutdown()
     }
 
