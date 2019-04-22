@@ -17,6 +17,7 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
+        debug { assets.srcDirs = ['src/debug/assets', 'src/debug/assets/'] }
     }
 
     buildTypes {
@@ -38,6 +39,15 @@ android {
             }
         }
     }
+
+    testOptions {
+        unitTests {
+            returnDefaultValues = true
+            includeAndroidResources = true
+        }
+    }
+
+    sourceSets.test.resources.srcDirs += ["src/debug/assets"]
 }
 
 androidExtensions {
@@ -52,6 +62,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$core_ktx"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
     implementation "androidx.recyclerview:recyclerview:$recyclerview"
+    implementation "androidx.legacy:legacy-support-v4:$legacy_support_v4"
 
     //Picasso
     implementation "com.squareup.picasso:picasso:$picasso"
@@ -64,10 +75,10 @@ dependencies {
     implementation "com.facebook.shimmer:shimmer:$shimmer"
 
     //Koin
-    implementation "org.koin:koin-core:$koin_core"
-    implementation "org.koin:koin-android:$koin_android"
-    implementation "org.koin:koin-androidx-scope:$koin_androidx_scope"
-    implementation "org.koin:koin-androidx-viewmodel:$koin_androidx_viewmodel"
+    implementation "org.koin:koin-core:$koin"
+    implementation "org.koin:koin-android:$koin"
+    implementation "org.koin:koin-androidx-scope:$koin"
+    implementation "org.koin:koin-androidx-viewmodel:$koin"
 
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
@@ -77,16 +88,19 @@ dependencies {
 
     //Rx
     implementation "com.squareup.retrofit2:adapter-rxjava2:$adapter_rxjava2"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
-    implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rx_kotlin"
 
     //AndroidX ViewModel/LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_extensions"
     implementation "com.google.android.material:material:$material"
 
     //Unit Test
-    implementation "androidx.legacy:legacy-support-v4:$legacy_support_v4"
     testImplementation "junit:junit:$junit"
+    testImplementation "org.koin:koin-test:$koin"
+    testImplementation "androidx.test:rules:$androidx_test_rules"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp"
+    testImplementation "androidx.arch.core:core-testing:$core_testing"
 
     //Instrumented Test
     androidTestImplementation "androidx.test:runner:$runner"
