@@ -40,7 +40,7 @@ jobs:
         command: ./gradlew lintDebug
     - run:
         name: RUN UNIT TESTS
-        command: ./gradlew testDebugUnitTest
+        command: ./gradlew testDebugUnitTest --stacktrace
     - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
         path: app/build/reports
         destination: reports
