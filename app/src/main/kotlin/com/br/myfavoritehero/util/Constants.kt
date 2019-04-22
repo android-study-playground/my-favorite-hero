@@ -30,4 +30,10 @@ object Constants {
     const val type = ".jpg"
     const val separator = "/"
 
+    const val ONE_SECOND = 1000
+    const val LIMIT = 50
+
+    const val ERROR_NOT_CONNECTED = 321
+    const val MESSAGE_ERROR_NOT_CONNECTED = "Parece que você não tem uma conexão estável com a internet."
+
 }
