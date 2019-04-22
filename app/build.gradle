@@ -105,4 +105,5 @@ dependencies {
     //Instrumented Test
     androidTestImplementation "androidx.test:runner:$runner"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core"
+    androidTestImplementation "android.arch.core:core-testing:$core_testing"
 }
