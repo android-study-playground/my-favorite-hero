@@ -98,12 +98,11 @@ dependencies {
     //Unit Test
     testImplementation "junit:junit:$junit"
     testImplementation "org.koin:koin-test:$koin"
-    testImplementation "androidx.test:rules:$androidx_test"
+    testImplementation "androidx.test:rules:$androidx_test_rules"
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp"
-    testImplementation "android.arch.core:core-testing:$core_testing"
+    testImplementation "androidx.arch.core:core-testing:$core_testing"
 
     //Instrumented Test
     androidTestImplementation "androidx.test:runner:$runner"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core"
-    androidTestImplementation "android.arch.core:core-testing:$core_testing"
 }
