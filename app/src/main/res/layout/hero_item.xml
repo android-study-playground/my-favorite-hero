@@ -48,7 +48,7 @@
                 android:layout_height="@dimen/dp_0"
                 android:background="@color/transparent"
                 android:src="@drawable/favorite"
-                android:tint="@color/black"
+                android:tint="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/heroCardImage"
                 app:layout_constraintBottom_toBottomOf="parent"
