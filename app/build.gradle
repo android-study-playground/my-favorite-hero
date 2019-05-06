@@ -106,5 +106,10 @@ dependencies {
 
     //Instrumented Test
     androidTestImplementation "androidx.test:runner:$runner"
+    androidTestImplementation "org.koin:koin-test:$koin"
+    androidTestImplementation "androidx.test:rules:$androidx_test_rules"
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okhttp"
+    androidTestImplementation "androidx.test.ext:junit:$androidx_test_rules"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core"
+
 }
