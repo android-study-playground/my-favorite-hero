@@ -4,12 +4,12 @@ import br.com.concrete.howdoyoufeel.extensions.getJson
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
-import org.koin.core.KoinComponent
+
 import java.net.HttpURLConnection
 
-abstract class BaseInstrumentedTest : KoinComponent {
+abstract class BaseInstrumentedTest {
 
-    val mockWebServer: MockWebServer = MockWebServer()
+    private val mockWebServer: MockWebServer = MockWebServer()
 
     init {
         mockWebServer.start(8080)
@@ -33,6 +33,6 @@ abstract class BaseInstrumentedTest : KoinComponent {
     }
 
     fun mockResponseError401() {
-        setResponse("mock/common/return_error_unauthorized.json", HttpURLConnection.HTTP_UNAUTHORIZED)
+        setResponse("mock/common/return_error_401.json", HttpURLConnection.HTTP_UNAUTHORIZED)
     }
 }

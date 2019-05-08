@@ -7,7 +7,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.koin.test.KoinTest
 
-abstract class BaseFragmentTest: KoinTest {
+abstract class BaseFragmentTest: BaseInstrumentedTest() {
 
     lateinit var testFragment: Fragment
 
