@@ -1,15 +1,19 @@
 package com.br.myfavoritehero.features.listCharacter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.HeroEventListener
 import com.br.myfavoritehero.data.models.Hero
+import com.br.myfavoritehero.util.SharedPreferencesHelper
 import com.br.myfavoritehero.util.getLargeLandscapeThumbnail
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.hero_item.view.heroCardImage
+import kotlinx.android.synthetic.main.hero_item.view.favoriteIcon
 import kotlinx.android.synthetic.main.hero_item.view.heroName
+import kotlinx.android.synthetic.main.hero_item.view.heroCardImage
 import kotlinx.android.synthetic.main.hero_list_loading.view.shimmer_view_container
 
 class HeroAdapter(
@@ -23,10 +27,13 @@ class HeroAdapter(
     }
 
     private var isLoading = false
+    private var favorited : Boolean = false
+    private var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == HERO_TYPE){
             val view = LayoutInflater.from(parent.context).inflate(R.layout.hero_item, parent, false)
+            context = view.context
             HeroViewHolder(view)
         }else{
             val view = LayoutInflater.from(parent.context).inflate(R.layout.hero_list_loading, parent, false)
@@ -40,6 +47,25 @@ class HeroAdapter(
             Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail()).into(holder.mLinearLayout.heroCardImage)
             holder.mLinearLayout.heroName.text = hero.name
             holder.mLinearLayout.setOnClickListener { listener.onHeroClicked(hero) }
+            context?.let {
+                favorited = SharedPreferencesHelper.isFavorited(it,hero.id)
+                switchVisibility(holder)
+            }
+
+            holder.mLinearLayout.favoriteIcon.setOnClickListener {
+                if (favorited) {
+                    SharedPreferencesHelper.setFavorite(it.context, hero.id, false)
+                    Snackbar.make(holder.mLinearLayout, R.string.unFavorited, Snackbar.LENGTH_SHORT).show()
+                    favorited = !favorited
+                }else{
+                    holder.mLinearLayout.favoriteIcon.setImageResource(R.drawable.un_favorite)
+                    SharedPreferencesHelper.setFavorite(it.context,hero.id)
+                    Snackbar.make(holder.mLinearLayout, R.string.favorited, Snackbar.LENGTH_SHORT).show()
+                    favorited = !favorited
+                }
+                switchVisibility(holder)
+            }
+
         }else if (holder is HeroLoadingViewHolder){
             holder.mLinearLayoutLoading.shimmer_view_container.startShimmerAnimation()
         }
@@ -68,4 +94,11 @@ class HeroAdapter(
         this.notifyDataSetChanged()
     }
 
+    private fun switchVisibility(holder: HeroViewHolder){
+        if (favorited) {
+            holder.mLinearLayout.favoriteIcon.setImageResource(R.drawable.un_favorite)
+        }else{
+            holder.mLinearLayout.favoriteIcon.setImageResource(R.drawable.favorite)
+        }
+    }
 }
