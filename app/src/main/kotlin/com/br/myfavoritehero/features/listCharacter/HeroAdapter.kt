@@ -27,7 +27,6 @@ class HeroAdapter(
     }
 
     private var isLoading = false
-    private var favorited : Boolean = false
     private var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -42,6 +41,7 @@ class HeroAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        var favorited : Boolean = false
         if (holder is HeroViewHolder){
             val hero = elements[position]
             Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail()).into(holder.mLinearLayout.heroCardImage)
@@ -49,7 +49,7 @@ class HeroAdapter(
             holder.mLinearLayout.setOnClickListener { listener.onHeroClicked(hero) }
             context?.let {
                 favorited = SharedPreferencesHelper.isFavorited(it,hero.id)
-                switchVisibility(holder)
+                switchVisibility(favorited, holder)
             }
 
             holder.mLinearLayout.favoriteIcon.setOnClickListener {
@@ -63,7 +63,7 @@ class HeroAdapter(
                     Snackbar.make(holder.mLinearLayout, R.string.favorited, Snackbar.LENGTH_SHORT).show()
                     favorited = !favorited
                 }
-                switchVisibility(holder)
+                switchVisibility(favorited, holder)
             }
 
         }else if (holder is HeroLoadingViewHolder){
@@ -94,7 +94,7 @@ class HeroAdapter(
         this.notifyDataSetChanged()
     }
 
-    private fun switchVisibility(holder: HeroViewHolder){
+    private fun switchVisibility(favorited: Boolean, holder: HeroViewHolder){
         if (favorited) {
             holder.mLinearLayout.favoriteIcon.setImageResource(R.drawable.un_favorite)
         }else{
