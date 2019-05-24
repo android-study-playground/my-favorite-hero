@@ -1,10 +1,23 @@
 package com.br.myfavoritehero.data.models
 
-import android.text.TextUtils
-
 data class ErrorResponse(
-    var message: ArrayList<String> = ArrayList(),
-    var messageInt: ArrayList<Int> = ArrayList()
+    var code: Any = Any(),
+    var message: String = String(),
+    var status: String = String(),
+    var extra: Int = 0
 ) {
-    override fun toString() = TextUtils.join(", ", message)
+    override fun toString(): String {
+        return code.toString() + ": " + getErrorMessage()
+    }
+
+    private fun getErrorMessage(): String {
+        var result = when (code is String) {
+            true -> message
+            false -> status
+        }
+        if (result == "") {
+            result = "Message not found."
+        }
+        return result
+    }
 }

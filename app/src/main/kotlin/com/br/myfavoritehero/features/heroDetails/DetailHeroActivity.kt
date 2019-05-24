@@ -19,8 +19,8 @@ import kotlinx.android.synthetic.main.activity_detail_hero.scroll_view
 
 class DetailHeroActivity : AppCompatActivity() {
 
-    private lateinit var hero : Hero
-    private var favorited : Boolean = false
+    private lateinit var hero: Hero
+    private var favorited: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,45 +32,45 @@ class DetailHeroActivity : AppCompatActivity() {
         Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail()).into(heroImage)
         description.text = hero.description
 
-        favorited = SharedPreferencesHelper.isFavorited(this,hero.id)
+        favorited = SharedPreferencesHelper.isFavorited(this, hero.id)
 
-        supportActionBar?.let{
+        supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.title = hero.name
         }
 
         switchVisibility()
 
-        fab_favorite_hero.setOnClickListener{
-            if (favorited) {
+        fab_favorite_hero.setOnClickListener {
+            favorited = if (favorited) {
                 SharedPreferencesHelper.setFavorite(this, hero.id, false)
                 Snackbar.make(scroll_view, R.string.unFavorited, Snackbar.LENGTH_SHORT).show()
-                favorited = !favorited
-            }else{
+                !favorited
+            } else {
                 fab_favorite_hero.setImageResource(R.drawable.un_favorite)
-                SharedPreferencesHelper.setFavorite(this,hero.id)
+                SharedPreferencesHelper.setFavorite(this, hero.id)
                 Snackbar.make(scroll_view, R.string.favorited, Snackbar.LENGTH_SHORT).show()
-                favorited = !favorited
+                !favorited
             }
             switchVisibility()
         }
 
         supportFragmentManager
                 .beginTransaction()
-                .add(R.id.comicsList,ComicsFragment.newInstance(hero.id))
+                .add(R.id.comicsList, ComicsFragment.newInstance(hero.id))
                 .commit()
     }
 
-    private fun switchVisibility(){
+    private fun switchVisibility() {
         if (favorited) {
             fab_favorite_hero.setImageResource(R.drawable.un_favorite)
-        }else{
+        } else {
             fab_favorite_hero.setImageResource(R.drawable.un_favorite)
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             android.R.id.home -> {
                 finish()
             }

@@ -23,7 +23,7 @@ class ComicsFragment : Fragment(), ComicEventListener {
     companion object {
         private const val HERO_ID = "HERO_ID"
 
-        fun newInstance(heroId:Int) : ComicsFragment{
+        fun newInstance(heroId: Int): ComicsFragment {
             val fragment = ComicsFragment()
             val bundle = Bundle()
             bundle.putInt(HERO_ID, heroId)
@@ -36,7 +36,7 @@ class ComicsFragment : Fragment(), ComicEventListener {
     private val comicsViewModel: ComicsViewModel by viewModel()
     private var comicsAdapter: ComicAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.comics_fragment, container, false)
     }
 
@@ -46,16 +46,16 @@ class ComicsFragment : Fragment(), ComicEventListener {
         initObservable()
     }
 
-    private fun initObservable(){
+    private fun initObservable() {
         comicsViewModel.getComics().observe(this, Observer { stateModel ->
-            when(stateModel.status){
+            when (stateModel.status) {
                 ViewStateModel.Status.ERROR -> {
                     comics_label.visibility = View.GONE
                     comics_divider.visibility = View.GONE
                     comics_list.visibility = View.GONE
                     shimmer_view_container.stopShimmerAnimation()
                     shimmer_view_container.visibility = View.GONE
-                    Timber.d("ERROR: ${stateModel.errors.toString()}")
+                    Timber.d("ERROR: ${stateModel.errors}")
                 }
                 ViewStateModel.Status.SUCCESS -> {
                     comics_list.visibility = View.VISIBLE
@@ -75,13 +75,9 @@ class ComicsFragment : Fragment(), ComicEventListener {
                     Timber.d("LOADING: ... ")
                 }
             }
-
         })
 
         comicsViewModel.loadComics(heroId.toString())
     }
-    override fun onComicClicked(comic: Comic) {
-
-    }
-
+    override fun onComicClicked(comic: Comic) {}
 }

@@ -30,12 +30,12 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
     val listCharacterViewModel: ListHeroesViewModel by viewModel()
 
     companion object {
-        fun newInstance(): Fragment{
+        fun newInstance(): Fragment {
             return ListHeroesFragment()
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.activity_list_heroes, container, false)
     }
 
@@ -44,19 +44,19 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
         initObservable()
     }
 
-    private fun initObservable(){
+    private fun initObservable() {
 
         this.lifecycle.addObserver(listCharacterViewModel)
 
-        listCharacterViewModel.getHeroes().observe(this, Observer{ stateModel ->
+        listCharacterViewModel.getHeroes().observe(this, Observer { stateModel ->
 
-            when(stateModel.status){
+            when (stateModel.status) {
                 ViewStateModel.Status.ERROR -> {
                     error_screen.visibility = View.VISIBLE
                     listHeroes.visibility = View.GONE
                     shimmer_view_container.visibility = View.GONE
                     shimmer_view_container.stopShimmerAnimation()
-                    Timber.d("ERROR: ${stateModel.errors.toString()}")
+                    Timber.d("ERROR: ${stateModel.errors}")
                 }
                 ViewStateModel.Status.SUCCESS -> {
                     listHeroes.visibility = View.VISIBLE
@@ -66,23 +66,22 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
                     listHeroes.setHasFixedSize(true)
                     val layoutManager = LinearLayoutManager(activity)
                     listHeroes.layoutManager = layoutManager
-                    heroAdapter = HeroAdapter(stateModel.model!!, this)
+                    heroAdapter = HeroAdapter(stateModel.model?: ArrayList(), this)
                     listHeroes.adapter = heroAdapter
 
-                    listHeroes.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int){
-                            if(dy > 0){
+                    listHeroes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                            if (dy > 0) {
                                 val visibleItemCount = layoutManager.childCount
                                 val totalItemCount = layoutManager.itemCount
                                 val pastVisiblesItems = layoutManager.findFirstVisibleItemPosition()
 
-                                if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount && !heroAdapter.isLoading() ) {
+                                if ((visibleItemCount + pastVisiblesItems) >= totalItemCount && !heroAdapter.isLoading()) {
                                     listCharacterViewModel.loadMore(heroAdapter.itemCount)
                                 }
                             }
                         }
                     })
-
                 }
                 ViewStateModel.Status.LOADING -> {
                     shimmer_view_container.visibility = View.VISIBLE
@@ -93,10 +92,10 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
         })
 
         listCharacterViewModel.getMore().observe(this, Observer { stateModel ->
-            when(stateModel.status){
+            when (stateModel.status) {
                 ViewStateModel.Status.ERROR -> {
                     Snackbar.make(activity_list_heroes, R.string.error_dialog_title, Snackbar.LENGTH_SHORT).show()
-                    Timber.d("ERROR: ${stateModel.errors.toString()}")
+                    Timber.d("ERROR: ${stateModel.errors}")
                     heroAdapter.stopLoading()
                 }
                 ViewStateModel.Status.SUCCESS -> {
@@ -109,7 +108,6 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
                 }
             }
         })
-
     }
 
     override fun onHeroClicked(hero: Hero) {
@@ -119,5 +117,4 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
             startActivity(i)
         }
     }
-
 }

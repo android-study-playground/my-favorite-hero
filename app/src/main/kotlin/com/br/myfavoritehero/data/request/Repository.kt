@@ -5,104 +5,50 @@ import com.br.myfavoritehero.base.BaseResponse
 import com.br.myfavoritehero.data.models.Comic
 import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.data.network.ApiService
+import com.br.myfavoritehero.util.Constants.LIMIT
+import com.br.myfavoritehero.util.Constants.ONE_SECOND
 import com.br.myfavoritehero.util.Util
-import retrofit2.Call
-import retrofit2.Callback
-import timber.log.Timber
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 
-class Repository(private val apiService: ApiService){
+class Repository(private val apiService: ApiService) : RepositoryContract {
 
-    companion object {
-        const val ONE_SECOND = 1000
-    }
-
-    fun getComics(
-            characterId: String = "",
-            success: (base: BaseResponse<Comic>) -> Unit,
-            error: (t: Throwable) -> Unit
-    ){
+    override fun getComics(characterId: String): Observable<BaseResponse<Comic>> {
         val ts = (System.currentTimeMillis() / ONE_SECOND)
         val hash = Util.md5(ts.toString() + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
 
-        val call = apiService.getComics(ts, BuildConfig.PUBLIC_KEY, hash, characterId)
-        Timber.d("URL: ${call.request().url()}")
-        call.enqueue(
-                object: Callback<BaseResponse<Comic>> {
-                    override fun onFailure(call: Call<BaseResponse<Comic>>, t: Throwable) {
-                        error(t)
-                    }
-
-                    override fun onResponse(
-                            call: Call<BaseResponse<Comic>>,
-                            baseResponse: retrofit2.Response<BaseResponse<Comic>>
-                    ) {
-                        if(baseResponse.code() == 200) {
-                            success(baseResponse.body()!!)
-                        }else{
-                            error(Throwable())
-                        }
-                    }
-                }
-        )
+        return apiService.getComics(
+                ts,
+                BuildConfig.PUBLIC_KEY,
+                hash,
+                characters = characterId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
     }
 
-    fun getHeroes(
-        success: (base: BaseResponse<Hero>) -> Unit,
-        error: (t: Throwable) -> Unit
-    ){
+    override fun getHeroes(): Observable<BaseResponse<Hero>> {
         val ts = (System.currentTimeMillis() / ONE_SECOND)
         val hash = Util.md5(ts.toString() + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
 
-        val call = apiService.getHeroes(ts, BuildConfig.PUBLIC_KEY, hash)
-        Timber.d("URL: ${call.request().url()}")
-        call.enqueue(
-            object: Callback<BaseResponse<Hero>> {
-                override fun onFailure(call: Call<BaseResponse<Hero>>, t: Throwable) {
-                    error(t)
-                }
-
-                override fun onResponse(
-                    call: Call<BaseResponse<Hero>>,
-                    baseResponse: retrofit2.Response<BaseResponse<Hero>>
-                ) {
-                    if(baseResponse.code() == 200) {
-                        success(baseResponse.body()!!)
-                    }else{
-                       error(Throwable())
-                    }
-                }
-            }
-        )
+        return apiService.getHeroes(
+                ts,
+                BuildConfig.PUBLIC_KEY,
+                hash)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
     }
 
-    fun loadMore(
-        success: (base: BaseResponse<Hero>) -> Unit,
-        error: (t: Throwable) -> Unit,
-        offset: Int
-    ){
+    override fun loadMore(offset: Int): Observable<BaseResponse<Hero>> {
         val ts = (System.currentTimeMillis() / ONE_SECOND)
         val hash = Util.md5(ts.toString() + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
 
-        val call = apiService.getHeroes(ts, BuildConfig.PUBLIC_KEY, hash, offset)
-        Timber.d( "URL: ${call.request().url()}")
-        call.enqueue(
-            object: Callback<BaseResponse<Hero>> {
-                override fun onFailure(call: Call<BaseResponse<Hero>>, t: Throwable) {
-                    error(t)
-                }
-
-                override fun onResponse(
-                    call: Call<BaseResponse<Hero>>,
-                    baseResponse: retrofit2.Response<BaseResponse<Hero>>
-                ) {
-                    if(baseResponse.code() == 200) {
-                        success(baseResponse.body()!!)
-                    }else{
-                        error(Throwable())
-                    }
-                }
-            }
-        )
+        return apiService.getHeroes(
+                ts,
+                BuildConfig.PUBLIC_KEY,
+                hash,
+                LIMIT,
+                offset)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
     }
-
 }

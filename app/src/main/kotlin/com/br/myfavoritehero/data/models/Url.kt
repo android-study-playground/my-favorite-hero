@@ -5,8 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Url(
-
-    val type : String = String(),
+    val type: String = String(),
     val url: String = String()
-
-): Parcelable
+) : Parcelable
