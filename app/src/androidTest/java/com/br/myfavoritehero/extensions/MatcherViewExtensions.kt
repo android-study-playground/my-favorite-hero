@@ -1,4 +1,4 @@
-package br.com.concrete.howdoyoufeel.extensions
+package com.br.myfavoritehero.extensions
 
 import android.view.View
 import android.view.ViewGroup
@@ -7,8 +7,7 @@ import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers
-import br.com.concrete.howdoyoufeel.util.LayoutChangeCallback
-
+import com.br.myfavoritehero.util.LayoutChangeCallback
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.StringDescription

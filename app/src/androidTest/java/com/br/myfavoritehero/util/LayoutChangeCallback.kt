@@ -1,4 +1,4 @@
-package br.com.concrete.howdoyoufeel.util
+package com.br.myfavoritehero.util
 
 import android.view.View
 import androidx.test.espresso.IdlingResource

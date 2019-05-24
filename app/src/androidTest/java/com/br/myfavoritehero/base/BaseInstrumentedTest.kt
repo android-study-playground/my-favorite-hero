@@ -1,6 +1,6 @@
 package com.br.myfavoritehero.base
 
-import br.com.concrete.howdoyoufeel.extensions.getJson
+import com.br.myfavoritehero.extensions.getJson
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After

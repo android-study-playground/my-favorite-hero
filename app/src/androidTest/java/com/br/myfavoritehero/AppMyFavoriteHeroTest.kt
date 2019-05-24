@@ -2,11 +2,11 @@ package com.br.myfavoritehero
 
 import android.app.Application
 import android.os.AsyncTask
-import br.com.concrete.howdoyoufeel.util.BASE_URL
 import com.br.myfavoritehero.di.PROPERTY_BASE_URL
 import com.br.myfavoritehero.di.networkModule
 import com.br.myfavoritehero.di.repositoryModule
 import com.br.myfavoritehero.di.viewModelModule
+import com.br.myfavoritehero.util.BASE_URL
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.koin.androidContext

@@ -6,10 +6,10 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
-import br.com.concrete.howdoyoufeel.extensions.childAtPosition
-import br.com.concrete.howdoyoufeel.extensions.waitUntil
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.base.BaseInstrumentedTest
+import com.br.myfavoritehero.extensions.childAtPosition
+import com.br.myfavoritehero.extensions.waitUntil
 import org.junit.Rule
 import org.junit.Test
 

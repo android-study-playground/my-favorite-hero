@@ -5,7 +5,6 @@ import androidx.test.rule.ActivityTestRule
 import com.br.myfavoritehero.debug.BaseTestActivity
 import org.junit.Before
 import org.junit.Rule
-import org.koin.test.KoinTest
 
 abstract class BaseFragmentTest: BaseInstrumentedTest() {
 

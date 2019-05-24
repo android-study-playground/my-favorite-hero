@@ -1,4 +1,4 @@
-package br.com.concrete.howdoyoufeel.extensions
+package com.br.myfavoritehero.extensions
 
 import androidx.test.platform.app.InstrumentationRegistry
 
