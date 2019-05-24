@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_list_heroes.listHeroes
 import kotlinx.android.synthetic.main.activity_list_heroes.activity_list_heroes
 import kotlinx.android.synthetic.main.generic_error_screen.error_screen
+import kotlinx.android.synthetic.main.generic_error_screen.tryAgain
 import kotlinx.android.synthetic.main.hero_list_loading.shimmer_view_container
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -42,6 +43,9 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initObservable()
+        tryAgain.setOnClickListener {
+            listCharacterViewModel.loadHeroes()
+        }
     }
 
     private fun initObservable() {
@@ -66,7 +70,7 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
                     listHeroes.setHasFixedSize(true)
                     val layoutManager = LinearLayoutManager(activity)
                     listHeroes.layoutManager = layoutManager
-                    heroAdapter = HeroAdapter(stateModel.model?: ArrayList(), this)
+                    heroAdapter = HeroAdapter(stateModel.model ?: ArrayList(), this)
                     listHeroes.adapter = heroAdapter
 
                     listHeroes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -84,6 +88,7 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
                     })
                 }
                 ViewStateModel.Status.LOADING -> {
+                    error_screen.visibility = View.GONE
                     shimmer_view_container.visibility = View.VISIBLE
                     shimmer_view_container.startShimmerAnimation()
                     Timber.d("LOADING: ... ")
