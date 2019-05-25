@@ -6,13 +6,13 @@ import com.br.myfavoritehero.util.Constants.separator
 import com.br.myfavoritehero.util.Constants.type
 
 fun String.getLargePortraitThumbnail(): String {
-    return "$this$separator$portrait_fantastic$type"
+    return "${this.replace("http://", "https://")}$separator$portrait_fantastic$type"
 }
 
 fun String.getLargeLandscapeThumbnail(): String {
-    return "$this$separator$landscape_amazing$type"
+    return "${this.replace("http://", "https://")}$separator$landscape_amazing$type"
 }
 
 fun String.getLargeThumbnail(): String {
-    return "$this$separator$landscape_amazing$type"
+    return "${this.replace("http://", "https://")}$separator$landscape_amazing$type"
 }
