@@ -14,7 +14,7 @@ interface ApiService {
         @Query("ts") ts: Long,
         @Query("apikey") apiKey: String,
         @Query("hash") hash: String,
-        @Query("limit") limit: Int = 20,
+        @Query("limit") limit: Int = 50,
         @Query("offset") offset: Int = 0
     ): Observable<BaseResponse<Hero>>
 
@@ -24,7 +24,7 @@ interface ApiService {
         @Query("apikey") apiKey: String,
         @Query("hash") hash: String,
         @Query("characters") characters: String = "",
-        @Query("limit") limit: Int = 20,
+        @Query("limit") limit: Int = 50,
         @Query("offset") offset: Int = 0
     ): Observable<BaseResponse<Comic>>
 }
