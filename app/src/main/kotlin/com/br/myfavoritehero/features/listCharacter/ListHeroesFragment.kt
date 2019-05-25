@@ -20,13 +20,13 @@ import kotlinx.android.synthetic.main.activity_list_heroes.listHeroes
 import kotlinx.android.synthetic.main.activity_list_heroes.activity_list_heroes
 import kotlinx.android.synthetic.main.generic_error_screen.error_screen
 import kotlinx.android.synthetic.main.generic_error_screen.tryAgain
-import kotlinx.android.synthetic.main.hero_list_loading.shimmer_view_container
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class ListHeroesFragment : Fragment(), HeroEventListener {
 
-    private lateinit var heroAdapter: HeroAdapter
+    private var heroAdapter: HeroAdapter = HeroAdapter(ArrayList(), this)
+    private lateinit var layoutManager: LinearLayoutManager
 
     val listCharacterViewModel: ListHeroesViewModel by viewModel()
 
@@ -42,10 +42,18 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initListHeroes()
         initObservable()
         tryAgain.setOnClickListener {
             listCharacterViewModel.loadHeroes()
         }
+    }
+
+    private fun initListHeroes() {
+        layoutManager = LinearLayoutManager(activity)
+        listHeroes.layoutManager = layoutManager
+        listHeroes.adapter = heroAdapter
+        listHeroes.setHasFixedSize(true)
     }
 
     private fun initObservable() {
@@ -58,21 +66,15 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
                 ViewStateModel.Status.ERROR -> {
                     error_screen.visibility = View.VISIBLE
                     listHeroes.visibility = View.GONE
-                    shimmer_view_container.visibility = View.GONE
-                    shimmer_view_container.stopShimmerAnimation()
+                    heroAdapter.stopLoading()
                     Timber.d("ERROR: ${stateModel.errors}")
                 }
                 ViewStateModel.Status.SUCCESS -> {
                     listHeroes.visibility = View.VISIBLE
-                    shimmer_view_container.visibility = View.GONE
-                    shimmer_view_container.stopShimmerAnimation()
-
-                    listHeroes.setHasFixedSize(true)
-                    val layoutManager = LinearLayoutManager(activity)
-                    listHeroes.layoutManager = layoutManager
-                    heroAdapter = HeroAdapter(stateModel.model ?: ArrayList(), this)
-                    listHeroes.adapter = heroAdapter
-
+                    heroAdapter.stopLoading()
+                    stateModel.model?.let {
+                        heroAdapter.updateUI(it)
+                    }
                     listHeroes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                             if (dy > 0) {
@@ -89,8 +91,8 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
                 }
                 ViewStateModel.Status.LOADING -> {
                     error_screen.visibility = View.GONE
-                    shimmer_view_container.visibility = View.VISIBLE
-                    shimmer_view_container.startShimmerAnimation()
+                    listHeroes.visibility = View.VISIBLE
+                    heroAdapter.startLoading()
                     Timber.d("LOADING: ... ")
                 }
             }
@@ -105,7 +107,9 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
                 }
                 ViewStateModel.Status.SUCCESS -> {
                     heroAdapter.stopLoading()
-                    heroAdapter.updateUI(stateModel.model!!)
+                    stateModel.model?.let {
+                        heroAdapter.updateUI(it)
+                    }
                 }
                 ViewStateModel.Status.LOADING -> {
                     heroAdapter.startLoading()
