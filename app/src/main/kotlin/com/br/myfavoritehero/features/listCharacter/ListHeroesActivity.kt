@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.hero_list_loading.shimmer_view_container
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import com.br.myfavoritehero.R
+import kotlinx.android.synthetic.main.generic_error_screen.error_text
 
 class ListHeroesActivity : AppCompatActivity(), HeroEventListener {
 
@@ -40,6 +41,7 @@ class ListHeroesActivity : AppCompatActivity(), HeroEventListener {
             when(stateModel.status){
                 ViewStateModel.Status.ERROR -> {
                     error_screen.visibility = View.VISIBLE
+                    error_text.text = stateModel.errors?.getErrorMessage()
                     listHeroes.visibility = View.GONE
                     shimmer_view_container.visibility = View.GONE
                     shimmer_view_container.stopShimmerAnimation()

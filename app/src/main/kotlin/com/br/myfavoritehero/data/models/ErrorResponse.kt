@@ -10,7 +10,7 @@ data class ErrorResponse(
         return code.toString() + ": " + getErrorMessage()
     }
 
-    private fun getErrorMessage(): String {
+    fun getErrorMessage(): String {
         var result = when (code is String) {
             true -> message
             false -> status
