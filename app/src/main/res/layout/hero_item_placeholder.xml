@@ -9,7 +9,7 @@
     android:layout_marginRight="@dimen/margin_default"
     android:layout_marginBottom="@dimen/margin_default"
     android:orientation="vertical"
-    tools:cardElevation="2dp"
+    tools:cardElevation="@dimen/card_elevation"
     tools:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +38,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/margin_default"
                 android:layout_marginRight="@dimen/margin_default"
-                android:layout_weight="1"
+                android:layout_weight="@integer/max_lines"
                 android:background="@color/shimmer_background" />
 
             <View

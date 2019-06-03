@@ -9,7 +9,7 @@
     android:layout_marginRight="@dimen/margin_default"
     android:layout_marginBottom="@dimen/margin_default"
     android:orientation="vertical"
-    tools:cardElevation="2dp"
+    tools:cardElevation="@dimen/card_elevation"
     tools:cardUseCompatPadding="true">
 
 
@@ -34,7 +34,7 @@
             android:layout_marginEnd="@dimen/margin_default"
             android:layout_marginRight="@dimen/margin_default"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="@integer/max_lines"
             android:padding="@dimen/padding"
             android:text="@string/hero_name"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
