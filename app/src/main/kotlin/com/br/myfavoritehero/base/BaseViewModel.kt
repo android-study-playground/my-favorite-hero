@@ -4,7 +4,6 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.models.ErrorResponse
-import com.br.myfavoritehero.util.Constants
 import com.br.myfavoritehero.util.Constants.ERROR_NOT_CONNECTED
 import com.br.myfavoritehero.util.Constants.MESSAGE_ERROR_NOT_CONNECTED
 import com.google.gson.GsonBuilder
@@ -61,5 +60,4 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
         disposables.dispose()
         super.onCleared()
     }
-
 }

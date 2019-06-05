@@ -27,6 +27,7 @@ buildscript {
         junit="4.12"
         runner="1.1.1"
         espresso_core="3.1.1"
+        navigation="2.1.0-alpha04"
         espresso_contrib = "2.2"
         core_testing = "2.0.0"
         androidx_test_rules = "1.1.0"
@@ -39,6 +40,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

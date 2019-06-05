@@ -13,13 +13,13 @@ import com.br.myfavoritehero.extensions.waitUntil
 import org.junit.Rule
 import org.junit.Test
 
-class ListHeroesActivityTest: BaseInstrumentedTest() {
+class ListHeroesActivityTest : BaseInstrumentedTest() {
 
     @get:Rule
     val activityRule = ActivityTestRule(ListHeroesActivity::class.java)
 
     @Test
-    fun checkLoadListSuccess(){
+    fun checkLoadListSuccess() {
         mockResponse200("mock/list_comics/return_success.json")
 
         onView(withId(R.id.listHeroes))
@@ -28,7 +28,7 @@ class ListHeroesActivityTest: BaseInstrumentedTest() {
     }
 
     @Test
-    fun checkLoadFirstItemSuccess(){
+    fun checkLoadFirstItemSuccess() {
         mockResponse200("mock/list_comics/return_success.json")
 
         onView(withId(R.id.listHeroes)
@@ -40,7 +40,7 @@ class ListHeroesActivityTest: BaseInstrumentedTest() {
     }
 
     @Test
-    fun checkLoadErrorScreenWhenRequestFail(){
+    fun checkLoadErrorScreenWhenRequestFail() {
         mockResponseError401()
 
         onView(withId(R.id.error_screen))
@@ -52,6 +52,5 @@ class ListHeroesActivityTest: BaseInstrumentedTest() {
 
         onView(withId(R.id.error_text))
                 .check(matches(withText("Sorry, estamos passando por dificuldades! :(")))
-
     }
 }

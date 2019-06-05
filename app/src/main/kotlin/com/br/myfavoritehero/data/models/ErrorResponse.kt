@@ -1,10 +1,10 @@
 package com.br.myfavoritehero.data.models
 
 data class ErrorResponse(
-        var code: Any = Any(),
-        var message: String = String(),
-        var status: String = String(),
-        var extra: Int = 0
+    var code: Any = Any(),
+    var message: String = String(),
+    var status: String = String(),
+    var extra: Int = 0
 ) {
     override fun toString(): String {
         return code.toString() + ": " + getErrorMessage()
@@ -15,7 +15,7 @@ data class ErrorResponse(
             true -> message
             false -> status
         }
-        if(result == "") {
+        if (result == "") {
             result = "Message not found."
         }
         return result

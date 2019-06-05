@@ -12,6 +12,7 @@
     <dimen name="margin_default">6dp</dimen>
     <dimen name="corner_radius">6</dimen>
     <dimen name="padding">12dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
     <dimen name="fab_elevation">10dp</dimen>
     <dimen name="sp_24">24sp</dimen>
     <dimen name="sp_27">27sp</dimen>

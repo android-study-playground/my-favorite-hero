@@ -41,5 +41,4 @@ class AppMyFavoriteHeroTest : Application() {
             properties(mapOf(PROPERTY_BASE_URL to BASE_URL))
         }
     }
-
 }

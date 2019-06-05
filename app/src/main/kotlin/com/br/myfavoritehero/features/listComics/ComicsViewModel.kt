@@ -6,13 +6,13 @@ import com.br.myfavoritehero.data.models.Comic
 import com.br.myfavoritehero.data.models.ViewStateModel
 import com.br.myfavoritehero.data.request.RepositoryContract
 
-class ComicsViewModel(private val repository: RepositoryContract): BaseViewModel() {
+class ComicsViewModel(private val repository: RepositoryContract) : BaseViewModel() {
 
     private val viewStateResponse: MutableLiveData<ViewStateModel<ArrayList<Comic>>> = MutableLiveData()
 
     fun getComics() = viewStateResponse
 
-    fun loadComics(characterId: String){
+    fun loadComics(characterId: String) {
         viewStateResponse.postValue(ViewStateModel(ViewStateModel.Status.LOADING))
         disposables.add(repository.getComics(
                 characterId).subscribe(
@@ -24,5 +24,4 @@ class ComicsViewModel(private val repository: RepositoryContract): BaseViewModel
                 }
         ))
     }
-
 }
