@@ -11,10 +11,12 @@ New Feature that should be merged on master - New Hero Detail Screen
 Files that was ignored, should be recreated on the local project of each one.
 Example:
 #### Create the gradle.properties file and set the content bellow
-/## Automatically convert third-party libraries to use AndroidX
+\## Automatically convert third-party libraries to use AndroidX
 android.enableJetifier=true	android.enableJetifier=true
-/## Kotlin code style for this project: "official" or "obsolete":	# Kotlin code style for this project: "official" or "obsolete":
+
+\## Kotlin code style for this project: "official" or "obsolete":	# Kotlin code style for this project: "official" or "obsolete":
 kotlin.code.style=official 	kotlin.code.style=official
-/## Marvel Keys
+
+\## Marvel Keys
 marvelPublicKey="your public key here"
 marvelPrivateKey="your private key here"
