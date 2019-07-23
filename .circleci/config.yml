@@ -12,13 +12,13 @@ jobs:
         key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
     - run:
         name: CREATING API CREDENTIALS FILE
-        command: touch gradle.properties
+        command: touch credentials.properties
     - run:
         name: PUTTING PUBLIC API KEY
-        command: echo marvelPublicKey=\"0000\" >> gradle.properties
+        command: echo marvel.public.key=\"0000\" >> gradle.properties
     - run:
         name: PUTTING PRIVATE API KEY
-        command: echo marvelPrivateKey=\"0000\" >> gradle.properties
+        command: echo marvel.private.key=\"0000\" >> gradle.properties
     - run:
         name: ACCEPTING ANDROID LICENSES #if permission for Gradlew Dependencies fail, use this.
         command: yes | sdkmanager --licenses || exit 0

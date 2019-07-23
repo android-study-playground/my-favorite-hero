@@ -5,16 +5,14 @@
         android:id="@+id/activity_list_heroes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.br.myfavoritehero.features.listCharacter.ListHeroesActivity">
+        tools:context="com.br.myfavoritehero.features.listCharacter.ListHeroesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listHeroes"
             android:layout_width="match_parent"
-            android:visibility="gone"
             android:layout_height="match_parent"
+            android:visibility="visible"
             tools:listitem="@layout/hero_item" />
-
-    <include layout="@layout/hero_list_loading"/>
 
     <include layout="@layout/generic_error_screen"/>
 

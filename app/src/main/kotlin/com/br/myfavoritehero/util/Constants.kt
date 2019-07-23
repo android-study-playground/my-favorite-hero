@@ -5,6 +5,8 @@ object Constants {
     const val CONNECTION_TIMEOUT = 15L
     const val READ_TIMEOUT = 30L
     const val HERO = "HERO"
+    const val HTTP_STRING = "http://"
+    const val HTTPS_STRING = "https://"
 
     const val portrait_small = "portrait_small"
     const val portrait_medium = "portrait_medium"

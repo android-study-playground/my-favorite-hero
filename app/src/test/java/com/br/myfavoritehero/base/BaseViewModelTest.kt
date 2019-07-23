@@ -85,12 +85,11 @@ open class BaseViewModelTest : KoinTest {
         setResponse("mock/common/return_error_409.json", HttpURLConnection.HTTP_CONFLICT)
     }
 
-    fun validateURL(regex: String,password: String): Boolean {
+    fun validateURL(regex: String, password: String): Boolean {
         var result = true
         if (!password.contains(Regex(regex))) {
             result = false
         }
         return result
     }
-
 }

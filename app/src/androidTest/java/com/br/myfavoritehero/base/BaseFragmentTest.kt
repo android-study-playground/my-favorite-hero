@@ -6,7 +6,7 @@ import com.br.myfavoritehero.debug.BaseTestActivity
 import org.junit.Before
 import org.junit.Rule
 
-abstract class BaseFragmentTest: BaseInstrumentedTest() {
+abstract class BaseFragmentTest : BaseInstrumentedTest() {
 
     lateinit var testFragment: Fragment
 

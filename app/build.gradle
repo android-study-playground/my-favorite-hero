@@ -21,23 +21,23 @@ android {
     }
 
     buildTypes {
-        buildTypes {
-            debug {
-                buildConfigField "String", "BASE_URL", '"https://gateway.marvel.com/"'
-                buildConfigField "String", "PUBLIC_KEY", marvelPublicKey
-                buildConfigField "String", "PRIVATE_KEY", marvelPrivateKey
-                applicationIdSuffix ".debug"
-                testCoverageEnabled true
-            }
 
-            release {
-                minifyEnabled false
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                buildConfigField "String", "BASE_URL", '"https://gateway.marvel.com/"'
-                buildConfigField "String", "PUBLIC_KEY", marvelPublicKey
-                buildConfigField "String", "PRIVATE_KEY", marvelPrivateKey
-            }
+        debug {
+            buildConfigField "String", "BASE_URL", "$marvel_url"
+            buildConfigField "String", "PUBLIC_KEY", "$marvel_public_key"
+            buildConfigField "String", "PRIVATE_KEY", "$marvel_private_key"
+            applicationIdSuffix ".debug"
+            testCoverageEnabled true
         }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "$marvel_url"
+            buildConfigField "String", "PUBLIC_KEY", "$marvel_public_key"
+            buildConfigField "String", "PRIVATE_KEY", "$marvel_private_key"
+        }
+
     }
 
     testOptions {
@@ -70,6 +70,10 @@ dependencies {
 
     //Timber
     implementation "com.jakewharton.timber:timber:$timber"
+
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment:$navigation"
+    implementation "androidx.navigation:navigation-ui:$navigation"
 
     //Shimmer
     implementation "com.facebook.shimmer:shimmer:$shimmer"

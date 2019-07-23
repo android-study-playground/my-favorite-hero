@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.test.runner.AndroidJUnitRunner
 import com.br.myfavoritehero.AppMyFavoriteHeroTest
 
-class MyFavoriteHeroTestRunner: AndroidJUnitRunner() {
+class MyFavoriteHeroTestRunner : AndroidJUnitRunner() {
 
     override fun newApplication(cl: ClassLoader?, className: String?, context: Context?): Application {
         return super.newApplication(
@@ -13,5 +13,4 @@ class MyFavoriteHeroTestRunner: AndroidJUnitRunner() {
                 AppMyFavoriteHeroTest::class.java.name,
                 context)
     }
-
 }

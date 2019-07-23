@@ -71,5 +71,4 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
         disposables.dispose()
         super.onCleared()
     }
-
 }

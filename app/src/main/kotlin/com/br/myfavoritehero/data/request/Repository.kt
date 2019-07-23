@@ -13,9 +13,7 @@ import io.reactivex.schedulers.Schedulers
 
 class Repository(private val apiService: ApiService) : RepositoryContract {
 
-    override fun getComics(
-            characterId: String
-    ): Observable<BaseResponse<Comic>> {
+    override fun getComics(characterId: String): Observable<BaseResponse<Comic>> {
         val ts = (System.currentTimeMillis() / ONE_SECOND)
         val hash = Util.md5(ts.toString() + BuildConfig.PRIVATE_KEY + BuildConfig.PUBLIC_KEY)
 
@@ -53,5 +51,4 @@ class Repository(private val apiService: ApiService) : RepositoryContract {
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
     }
-
 }

@@ -1,6 +1,5 @@
 #Ignore Config
 local.properties
-gradle.properties
 
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
@@ -152,3 +151,5 @@ fabric.properties
 *.zip
 *.tar.gz
 *.rar
+
+credentials.properties

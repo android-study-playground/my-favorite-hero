@@ -10,7 +10,7 @@ object SharedPreferencesHelper {
     private const val FAVORITE_PREFS = "FAVORITE_PREFS"
     private const val HATE_PREFS = "HATE_PREFS"
 
-    fun savePrefs(context: Context, itens : List<Int>, sharedPrefName: String){
+    fun savePrefs(context: Context, itens: List<Int>, sharedPrefName: String) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = prefs.edit()
         editor.putString(sharedPrefName, Gson().toJson(itens))
@@ -32,32 +32,32 @@ object SharedPreferencesHelper {
         return result
     }
 
-    fun setFavorite(context: Context, id: Int, active: Boolean = true){
+    fun setFavorite(context: Context, id: Int, active: Boolean = true) {
         var favorites = getFromPrefs(context, FAVORITE_PREFS)
         if (active) {
             favorites += id
-        }else{
+        } else {
             favorites -= id
         }
         savePrefs(context, favorites, FAVORITE_PREFS)
     }
 
-    fun setHate(context: Context, id: Int, active: Boolean = true){
+    fun setHate(context: Context, id: Int, active: Boolean = true) {
         var hates = getFromPrefs(context, HATE_PREFS)
         if (active) {
             hates += id
-        }else{
+        } else {
             hates -= id
         }
         savePrefs(context, hates, HATE_PREFS)
     }
 
-    fun isFavorited(context: Context, id: Int): Boolean{
+    fun isFavorited(context: Context, id: Int): Boolean {
         val favorites = getFromPrefs(context, FAVORITE_PREFS)
         return favorites.contains(id)
     }
 
-    fun isHated(context: Context, id: Int): Boolean{
+    fun isHated(context: Context, id: Int): Boolean {
         val hates = getFromPrefs(context, HATE_PREFS)
         return hates.contains(id)
     }

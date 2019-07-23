@@ -12,13 +12,13 @@ import org.junit.Assert
 import org.junit.Test
 import org.koin.test.inject
 
-class ListComicsViewModelTest: BaseViewModelTest(){
+class ListComicsViewModelTest : BaseViewModelTest() {
 
     private val comicsViewModel: ComicsViewModel by inject()
     private val characterId = "1010802"
 
     @Test
-    fun createCorrectUrl(){
+    fun createCorrectUrl() {
         val expectedPath = "\\/v1\\/public\\/comics\\?ts=[0-9]+&apikey=[a-z0-9]+&hash=[a-z0-9]+&characters=$characterId&limit=50&offset=0"
         mockResponse200("mock/list_comics/return_success.json")
         comicsViewModel.loadComics(characterId)
@@ -27,7 +27,7 @@ class ListComicsViewModelTest: BaseViewModelTest(){
     }
 
     @Test
-    fun checkListCharacterComicsSuccess(){
+    fun checkListCharacterComicsSuccess() {
         mockResponse200("mock/list_comics/return_success.json")
         val responseJson = getJson("mock/list_comics/return_success.json")
         val collectionType = object : TypeToken<BaseResponse<Comic>>() {}.type
@@ -50,7 +50,7 @@ class ListComicsViewModelTest: BaseViewModelTest(){
     }
 
     @Test
-    fun checkListCharacterComicsError401(){
+    fun checkListCharacterComicsError401() {
         mockResponseError401()
         val collectionType = object : TypeToken<ErrorResponse>() {}.type
         val responseObject: ErrorResponse = GsonBuilder()
@@ -74,7 +74,7 @@ class ListComicsViewModelTest: BaseViewModelTest(){
     }
 
     @Test
-    fun checkListCharacterComicsError404(){
+    fun checkListCharacterComicsError404() {
         mockResponseError404()
         val collectionType = object : TypeToken<ErrorResponse>() {}.type
         val responseObject: ErrorResponse = GsonBuilder()
@@ -98,7 +98,7 @@ class ListComicsViewModelTest: BaseViewModelTest(){
     }
 
     @Test
-    fun checkListCharacterComicsError405(){
+    fun checkListCharacterComicsError405() {
         mockResponseError405()
         val collectionType = object : TypeToken<ErrorResponse>() {}.type
         val responseObject: ErrorResponse = GsonBuilder()
@@ -122,7 +122,7 @@ class ListComicsViewModelTest: BaseViewModelTest(){
     }
 
     @Test
-    fun checkListCharacterComicsError409(){
+    fun checkListCharacterComicsError409() {
         mockResponseError409()
         val collectionType = object : TypeToken<ErrorResponse>() {}.type
         val responseObject: ErrorResponse = GsonBuilder()

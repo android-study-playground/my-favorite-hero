@@ -9,4 +9,4 @@ New Feature that should be merged on master - New Hero Detail Screen
 
 ### Ignored Files
 Files that was ignored, should be recreated on the local project of each one.
-If you want an example, go to the first commit and see the files
+To build the app, go to Marvel Developer and get the keys for you, then you need to copy and paste the credentials.properties.sample and paste as credentials.properties with your credentials.
