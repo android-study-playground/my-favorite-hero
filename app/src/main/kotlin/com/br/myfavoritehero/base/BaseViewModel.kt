@@ -30,17 +30,8 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
                         ErrorResponse::class.java)
 
                 when (error.code()) {
-                    HttpURLConnection.HTTP_CONFLICT -> {
-                        errorResponse.extra = R.string.unknow_error
-                    }
                     HttpURLConnection.HTTP_UNAUTHORIZED -> {
                         errorResponse.extra = R.string.unauthorized
-                    }
-                    HttpURLConnection.HTTP_NOT_FOUND -> {
-                        errorResponse.extra = R.string.unknow_error
-                    }
-                    HttpURLConnection.HTTP_BAD_METHOD -> {
-                        errorResponse.extra = R.string.unknow_error
                     }
                     HttpURLConnection.HTTP_INTERNAL_ERROR -> {
                         errorResponse.extra = R.string.server_down
