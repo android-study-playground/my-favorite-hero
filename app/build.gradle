@@ -21,23 +21,23 @@ android {
     }
 
     buildTypes {
-        buildTypes {
-            debug {
-                buildConfigField "String", "BASE_URL", "$marvel_url"
-                buildConfigField "String", "PUBLIC_KEY", "$marvel_public_key"
-                buildConfigField "String", "PRIVATE_KEY", "$marvel_private_key"
-                applicationIdSuffix ".debug"
-                testCoverageEnabled true
-            }
 
-            release {
-                minifyEnabled false
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                buildConfigField "String", "BASE_URL", "$marvel_url"
-                buildConfigField "String", "PUBLIC_KEY", "$marvel_public_key"
-                buildConfigField "String", "PRIVATE_KEY", "$marvel_private_key"
-            }
+        debug {
+            buildConfigField "String", "BASE_URL", "$marvel_url"
+            buildConfigField "String", "PUBLIC_KEY", "$marvel_public_key"
+            buildConfigField "String", "PRIVATE_KEY", "$marvel_private_key"
+            applicationIdSuffix ".debug"
+            testCoverageEnabled true
         }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "$marvel_url"
+            buildConfigField "String", "PUBLIC_KEY", "$marvel_public_key"
+            buildConfigField "String", "PRIVATE_KEY", "$marvel_private_key"
+        }
+
     }
 
     testOptions {
