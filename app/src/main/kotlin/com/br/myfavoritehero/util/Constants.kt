@@ -37,4 +37,7 @@ object Constants {
 
     const val ERROR_NOT_CONNECTED = 321
     const val MESSAGE_ERROR_NOT_CONNECTED = "Parece que você não tem uma conexão estável com a internet."
+    const val MESSAGE_ERROR_TIME_OUT = "Não estamos conseguindo nos conectar com a Marvel, acho que os vingadores estão com problemas! Só voltaremos mais tarde! O que você pode fazer para salvar o mundo enquanto isso?"
+
+
 }
