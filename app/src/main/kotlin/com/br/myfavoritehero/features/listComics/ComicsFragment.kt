@@ -53,14 +53,14 @@ class ComicsFragment : Fragment(), ComicEventListener {
                     comics_label.visibility = View.GONE
                     comics_divider.visibility = View.GONE
                     comics_list.visibility = View.GONE
-                    shimmer_view_container.stopShimmerAnimation()
+                    shimmer_view_container.stopShimmer()
                     shimmer_view_container.visibility = View.GONE
                     Timber.d("ERROR: ${stateModel.errors}")
                 }
                 ViewStateModel.Status.SUCCESS -> {
                     comics_list.visibility = View.VISIBLE
                     shimmer_view_container.visibility = View.GONE
-                    shimmer_view_container.stopShimmerAnimation()
+                    shimmer_view_container.stopShimmer()
                     comics_list.setHasFixedSize(true)
                     val layoutManager = LinearLayoutManager(activity)
                     comics_list.layoutManager = layoutManager
@@ -71,7 +71,7 @@ class ComicsFragment : Fragment(), ComicEventListener {
                 }
                 ViewStateModel.Status.LOADING -> {
                     shimmer_view_container.visibility = View.VISIBLE
-                    shimmer_view_container.startShimmerAnimation()
+                    shimmer_view_container.startShimmer()
                     Timber.d("LOADING: ... ")
                 }
             }

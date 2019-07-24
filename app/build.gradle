@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.br.myfavoritehero"
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -17,6 +17,7 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
+        test.resources.srcDirs += ["src/debug/assets"]
         debug { assets.srcDirs = ['src/debug/assets', 'src/debug/assets/'] }
     }
 
@@ -47,7 +48,10 @@ android {
         }
     }
 
-    sourceSets.test.resources.srcDirs += ["src/debug/assets"]
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 androidExtensions {

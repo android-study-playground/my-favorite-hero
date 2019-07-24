@@ -67,7 +67,7 @@ class HeroAdapter(
                 switchVisibility(favorited, holder)
             }
         } else if (holder is HeroLoadingViewHolder) {
-            holder.mShimmerFrameLayout.startShimmerAnimation()
+            holder.mShimmerFrameLayout.startShimmer()
             context?.let {
                 holder.mLoadingHeroRecyclerView.layoutManager = LinearLayoutManager(it)
             }
