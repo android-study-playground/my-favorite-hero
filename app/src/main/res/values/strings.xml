@@ -4,8 +4,11 @@
         mais tarde!
     </string>
     <string name="error_dialog_title">Sorry, estamos passando por dificuldades! :(</string>
+    <string name="try_again">Tentar novamente</string>
     <string name="ok">OK</string>
     <string name="unknow_error">Aconteceu um erro e estamos correndo para solucionar, tente novamente mais tarde!
+    </string>
+    <string name="server_down">Não estamos conseguindo nos conectar com a Marvel, acho que os vingadores estão com problemas! Só voltaremos mais tarde! O que você pode fazer para salvar o mundo enquanto isso?
     </string>
     <string name="no_internet_connection">Parece que você está sem internet, você poderia ligá-lá para podermos
         solucionar este problema?

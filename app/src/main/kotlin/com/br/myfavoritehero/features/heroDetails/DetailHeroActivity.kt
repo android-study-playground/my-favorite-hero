@@ -4,20 +4,24 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.br.myfavoritehero.R
-import com.br.myfavoritehero.data.dao.HeroDao
 import com.br.myfavoritehero.data.models.Hero
+import com.br.myfavoritehero.features.heroDetails.viewModel.HeroDetailViewModel
 import com.br.myfavoritehero.features.listComics.ComicsFragment
 import com.br.myfavoritehero.util.Constants.HERO
 import com.br.myfavoritehero.util.getLargeLandscapeThumbnail
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_detail_hero.*
-import org.koin.android.ext.android.inject
+import kotlinx.android.synthetic.main.activity_detail_hero.fab_favorite_hero
+import kotlinx.android.synthetic.main.activity_detail_hero.toolbar
+import kotlinx.android.synthetic.main.activity_detail_hero.heroImage
+import kotlinx.android.synthetic.main.activity_detail_hero.description
+import kotlinx.android.synthetic.main.activity_detail_hero.scroll_view
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailHeroActivity : AppCompatActivity() {
 
     private lateinit var hero : Hero
-    private val heroDao : HeroDao by inject()
+    private val heroDetailViewModel: HeroDetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +30,7 @@ class DetailHeroActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         hero = intent.getParcelableExtra(HERO)
+        hero = heroDetailViewModel.getHero(hero.id)
         Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail()).into(heroImage)
         description.text = hero.description
 
@@ -44,14 +49,18 @@ class DetailHeroActivity : AppCompatActivity() {
                 hero.isFavorite = !hero.isFavorite
                 Snackbar.make(scroll_view, R.string.favorited, Snackbar.LENGTH_SHORT).show()
             }
-            heroDao.save(hero)
             switchVisibility()
         }
 
         supportFragmentManager
                 .beginTransaction()
-                .add(R.id.comicsList,ComicsFragment.newInstance(hero.id))
+                .add(R.id.comicsList, ComicsFragment.newInstance(hero.id))
                 .commit()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        heroDetailViewModel.updateHero(hero)
     }
 
     private fun switchVisibility(){
@@ -63,7 +72,7 @@ class DetailHeroActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             android.R.id.home -> {
                 finish()
             }

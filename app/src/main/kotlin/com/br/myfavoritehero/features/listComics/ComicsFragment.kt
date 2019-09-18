@@ -11,8 +11,10 @@ import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.ComicEventListener
 import com.br.myfavoritehero.data.models.Comic
 import com.br.myfavoritehero.data.models.ViewStateModel
-import kotlinx.android.synthetic.main.comic_list_loading.*
-import kotlinx.android.synthetic.main.comics_fragment.*
+import kotlinx.android.synthetic.main.comic_list_loading.shimmer_view_container
+import kotlinx.android.synthetic.main.comics_fragment.comics_label
+import kotlinx.android.synthetic.main.comics_fragment.comics_divider
+import kotlinx.android.synthetic.main.comics_fragment.comics_list
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -21,7 +23,7 @@ class ComicsFragment : Fragment(), ComicEventListener {
     companion object {
         private const val HERO_ID = "HERO_ID"
 
-        fun newInstance(heroId:Int) : ComicsFragment{
+        fun newInstance(heroId: Int): ComicsFragment {
             val fragment = ComicsFragment()
             val bundle = Bundle()
             bundle.putInt(HERO_ID, heroId)
@@ -30,11 +32,11 @@ class ComicsFragment : Fragment(), ComicEventListener {
         }
     }
 
-    private var heroId: Int? = null
+    private var heroId: Int = 0
     private val comicsViewModel: ComicsViewModel by viewModel()
     private var comicsAdapter: ComicAdapter? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.comics_fragment, container, false)
     }
 
@@ -44,40 +46,38 @@ class ComicsFragment : Fragment(), ComicEventListener {
         initObservable()
     }
 
-    private fun initObservable(){
+    private fun initObservable() {
         comicsViewModel.getComics().observe(this, Observer { stateModel ->
-            when(stateModel.status){
+            when (stateModel.status) {
                 ViewStateModel.Status.ERROR -> {
                     comics_label.visibility = View.GONE
                     comics_divider.visibility = View.GONE
                     comics_list.visibility = View.GONE
-                    shimmer_view_container.stopShimmerAnimation()
+                    shimmer_view_container.stopShimmer()
                     shimmer_view_container.visibility = View.GONE
-                    Timber.d("ERROR: ${stateModel.errors.toString()}")
+                    Timber.d("ERROR: ${stateModel.errors}")
                 }
                 ViewStateModel.Status.SUCCESS -> {
                     comics_list.visibility = View.VISIBLE
                     shimmer_view_container.visibility = View.GONE
-                    shimmer_view_container.stopShimmerAnimation()
+                    shimmer_view_container.stopShimmer()
                     comics_list.setHasFixedSize(true)
                     val layoutManager = LinearLayoutManager(activity)
                     comics_list.layoutManager = layoutManager
-                    comicsAdapter = ComicAdapter(stateModel.model!!, this)
-                    comics_list.adapter = comicsAdapter
+                    stateModel.model?.let {
+                        comicsAdapter = ComicAdapter(it, this)
+                        comics_list.adapter = comicsAdapter
+                    }
                 }
                 ViewStateModel.Status.LOADING -> {
                     shimmer_view_container.visibility = View.VISIBLE
-                    shimmer_view_container.startShimmerAnimation()
+                    shimmer_view_container.startShimmer()
                     Timber.d("LOADING: ... ")
                 }
             }
-
         })
 
         comicsViewModel.loadComics(heroId.toString())
     }
-    override fun onComicClicked(comic: Comic) {
-
-    }
-
+    override fun onComicClicked(comic: Comic) {}
 }

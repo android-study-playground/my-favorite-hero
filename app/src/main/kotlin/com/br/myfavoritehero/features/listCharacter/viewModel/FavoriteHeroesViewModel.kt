@@ -11,6 +11,8 @@ class FavoriteHeroesViewModel(private val heroDao: HeroDao): BaseViewModel() {
 
     private val favoriteHeroesData: MutableLiveData<ArrayList<Hero>> = MutableLiveData()
 
+    fun updateHero(hero:Hero) = heroDao.update(hero)
+
     fun getFavoriteHeroes() = favoriteHeroesData
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)

@@ -8,11 +8,13 @@ import com.br.myfavoritehero.data.interfaces.ComicEventListener
 import com.br.myfavoritehero.data.models.Comic
 import com.br.myfavoritehero.util.getLargePortraitThumbnail
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.comic_item.view.*
+import kotlinx.android.synthetic.main.comic_item.view.comicTitle
+import kotlinx.android.synthetic.main.comic_item.view.comicImage
+import kotlinx.android.synthetic.main.comic_item.view.comicDescription
 
 class ComicAdapter(
-        private val elements: ArrayList<Comic>,
-        private val listener: ComicEventListener
+    private val elements: ArrayList<Comic>,
+    private val listener: ComicEventListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -21,7 +23,7 @@ class ComicAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ComicViewHolder){
+        if (holder is ComicViewHolder) {
             elements.let {
                 val comic = it[position]
                 Picasso.get().load(comic.thumbnail.path.getLargePortraitThumbnail()).into(holder.mLinearLayout.comicImage)
@@ -36,9 +38,8 @@ class ComicAdapter(
         return elements.size
     }
 
-    fun updateUI(elements: ArrayList<Comic>){
+    fun updateUI(elements: ArrayList<Comic>) {
         this.elements.addAll(elements)
         this.notifyDataSetChanged()
     }
-
 }

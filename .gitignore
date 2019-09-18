@@ -1,6 +1,5 @@
 #Ignore Config
 local.properties
-gradle.properties
 
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
@@ -85,6 +84,10 @@ obj/
 .idea/dynamic.xml
 .idea/uiDesigner.xml
 .idea/assetWizardSettings.xml
+.idea/gradle.xml
+.idea/runConfigurations.xml
+.idea/codeStyles/
+.idea/workspace.xml
 
 # OS-specific files
 .DS_Store
@@ -148,3 +151,5 @@ fabric.properties
 *.zip
 *.tar.gz
 *.rar
+
+credentials.properties

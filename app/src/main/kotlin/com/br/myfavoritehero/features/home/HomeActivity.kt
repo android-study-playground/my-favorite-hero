@@ -12,34 +12,36 @@ import kotlinx.android.synthetic.main.activity_bottom_navigation.*
 
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private var fragment: Fragment =  ListHeroesFragment.newInstance()
+    private lateinit var listHeroesFragment: Fragment
+    private lateinit var favoriteListHeroesFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_navigation)
-        navigationView.setOnNavigationItemSelectedListener(this)
-        switchFragment()
+
+        listHeroesFragment = ListHeroesFragment.newInstance()
+        favoriteListHeroesFragment = FavoriteHeroesFragment.newInstance()
+
+        switchFragment(listHeroesFragment)
+        navigation.setOnNavigationItemSelectedListener(this)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.heroes -> {
-                fragment = ListHeroesFragment.newInstance()
+                switchFragment(listHeroesFragment)
             }
             R.id.favorite -> {
-                fragment = FavoriteHeroesFragment.newInstance()
+                switchFragment(favoriteListHeroesFragment)
             }
         }
-        switchFragment()
         return true
     }
 
-    private fun switchFragment(){
+    private fun switchFragment(fragment:Fragment){
         supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations( android.R.anim.fade_in, android.R.anim.fade_out )
-                .replace(R.id.container, fragment)
-                .commit()
+            .beginTransaction()
+            .replace(R.id.frame_layout, fragment)
+            .commit()
     }
-
 }

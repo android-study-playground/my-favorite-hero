@@ -68,4 +68,10 @@ class FavoriteHeroesFragment : Fragment(), HeroEventListener {
         }
     }
 
+    override fun onHeroFavorited(hero: Hero) {
+        hero.isFavorite = !hero.isFavorite
+        favoriteHeroesViewModel.updateHero(hero)
+    }
+
+
 }

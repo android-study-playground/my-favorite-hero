@@ -28,6 +28,7 @@ class FavoriteHeroAdapter(
             Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail()).into(holder.mLinearLayout.heroCardImage)
             holder.mLinearLayout.heroName.text = hero.name
             holder.mLinearLayout.setOnClickListener { listener.onHeroClicked(hero) }
+            if (hero.isFavorite) holder.mLinearLayout.favoriteIcon.setImageResource(R.drawable.un_favorite)
         }
     }
 

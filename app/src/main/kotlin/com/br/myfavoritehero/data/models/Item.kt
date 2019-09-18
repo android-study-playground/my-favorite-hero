@@ -8,4 +8,4 @@ data class Item(
     val resourceURI: String = String(),
     val name: String = String(),
     val type: String = String()
-): Parcelable
+) : Parcelable

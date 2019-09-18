@@ -9,7 +9,7 @@
     <View
         android:id="@+id/comics_divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/dp_1"
         android:background="@android:color/darker_gray"
         android:layout_marginTop="@dimen/margin_default"
         android:layout_marginBottom="@dimen/margin_default"

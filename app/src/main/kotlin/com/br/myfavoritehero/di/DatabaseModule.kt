@@ -2,7 +2,7 @@ package com.br.myfavoritehero.di
 
 import androidx.room.Room
 import com.br.myfavoritehero.data.database.AppDatabase
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 
 val databaseModule = module {
 
