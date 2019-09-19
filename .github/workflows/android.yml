@@ -1,12 +1,10 @@
 name: Android CI
 
 on:
-
   push:
     branches:
     - master
-    - develop
-    
+    - develop 
   pull_request:
     branches:
     - master
@@ -21,8 +19,11 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Build with Gradle
-      run: ./gradlew build
+    - name: LINT JOB
+      run: touch credentials.properties &&
+        echo marvel.public.key=\"0000\" >> gradle.properties &&
+        echo marvel.private.key=\"0000\" >> gradle.properties &&
+        ./gradlew lintDebug
       
   test:
     runs-on: ubuntu-latest
@@ -32,5 +33,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Build with Gradle
-      run: ./gradlew test
+    - name: TEST JOB
+      run: touch credentials.properties &&
+        echo marvel.public.key=\"0000\" >> gradle.properties &&
+        echo marvel.private.key=\"0000\" >> gradle.properties &&
+        ./gradlew testDebugUnitTest
