@@ -11,7 +11,8 @@ class HeroLoadingAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var elements: ArrayList<String> = arrayListOf("", "")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.hero_item_placeholder, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.hero_item_placeholder, parent, false)
         return HeroLoadingViewHolder(view)
     }
 

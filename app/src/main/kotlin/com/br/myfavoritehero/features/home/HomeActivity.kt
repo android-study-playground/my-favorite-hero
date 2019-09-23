@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.heroes -> {
                 switchFragment(listHeroesFragment)
             }
@@ -38,7 +38,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         return true
     }
 
-    private fun switchFragment(fragment:Fragment){
+    private fun switchFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.frame_layout, fragment)

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_list_heroes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.br.myfavoritehero.features.listCharacter.FavoriteHeroesFragment">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_list_heroes"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.br.myfavoritehero.features.listCharacter.FavoriteHeroesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/favoriteHeroes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layoutManager="GridLayoutManager"
+            app:spanCount="2"
             tools:listitem="@layout/hero_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

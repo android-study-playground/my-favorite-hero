@@ -25,7 +25,8 @@ class FavoriteHeroAdapter(
     override fun onBindViewHolder(holder: HeroViewHolder, position: Int) {
         elements.let {
             val hero = it[position]
-            Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail()).into(holder.mLinearLayout.heroCardImage)
+            Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail())
+                .into(holder.mLinearLayout.heroCardImage)
             holder.mLinearLayout.heroName.text = hero.name
             holder.mLinearLayout.setOnClickListener { listener.onHeroClicked(hero) }
             if (hero.isFavorite) holder.mLinearLayout.favoriteIcon.setImageResource(R.drawable.un_favorite)
@@ -36,7 +37,7 @@ class FavoriteHeroAdapter(
         return elements.size
     }
 
-    fun updateUI(elements: ArrayList<Hero>){
+    fun updateUI(elements: ArrayList<Hero>) {
         this.elements.clear()
         this.elements.addAll(elements)
         this.notifyDataSetChanged()

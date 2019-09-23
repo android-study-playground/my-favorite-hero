@@ -65,6 +65,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$appcompat"
+    implementation "com.android.support:design:$design"
     implementation "androidx.core:core-ktx:$core_ktx"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
     implementation "androidx.recyclerview:recyclerview:$recyclerview"
@@ -73,6 +74,7 @@ dependencies {
     //ROOM
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+//    implementation "androidx.room:room-rxjava2:$room_version"
 
     //Picasso
     implementation "com.squareup.picasso:picasso:$picasso"

@@ -3,15 +3,14 @@ package com.br.myfavoritehero.data.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.br.myfavoritehero.data.models.Hero
+import com.br.myfavoritehero.util.Constants.LIMIT
 
 @Dao
 interface HeroDao {
 
     @Query("SELECT * FROM hero WHERE hero.isFavorite = 1 ORDER BY hero.name") fun getFavorites(): LiveData<List<Hero>>
 
-    @Query("SELECT * FROM hero ORDER BY hero.name") fun getAll(): LiveData<List<Hero>>
-
-    @Query("SELECT * FROM hero ORDER BY hero.name LIMIT :limit OFFSET :offset ") fun getAll(limit:Int ,offset: Int): LiveData<List<Hero>>
+    @Query("SELECT * FROM hero ORDER BY hero.name LIMIT :offset, :limit") fun getAll(offset: Int, limit:Int = LIMIT ): LiveData<List<Hero>>
 
     @Query("SELECT * FROM hero WHERE hero.id = :id ") fun get(id:Int): Hero
 

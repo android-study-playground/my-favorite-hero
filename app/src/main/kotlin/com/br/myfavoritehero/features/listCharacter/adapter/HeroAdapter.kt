@@ -3,21 +3,12 @@ package com.br.myfavoritehero.features.listCharacter.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.HeroEventListener
 import com.br.myfavoritehero.data.models.Hero
-import com.br.myfavoritehero.features.listCharacter.HeroLoadingAdapter
 import com.br.myfavoritehero.features.listCharacter.viewHolder.HeroLoadingViewHolder
 import com.br.myfavoritehero.features.listCharacter.viewHolder.HeroViewHolder
-import com.br.myfavoritehero.util.SharedPreferencesHelper
-import com.br.myfavoritehero.util.getLargeLandscapeThumbnail
-import com.google.android.material.snackbar.Snackbar
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.hero_item.view.favoriteIcon
-import kotlinx.android.synthetic.main.hero_item.view.heroName
-import kotlinx.android.synthetic.main.hero_item.view.heroCardImage
 
 class HeroAdapter(
     private val elements: ArrayList<Hero>,
@@ -34,7 +25,8 @@ class HeroAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == HERO_TYPE) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.hero_item, parent, false)
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.hero_item, parent, false)
             context = view.context
             HeroViewHolder(view)
         } else {
@@ -58,7 +50,7 @@ class HeroAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (isLoading) elements.size + 1 else elements.size
+        return if (isLoading) elements.size + 2 else elements.size
     }
 
     fun startLoading() {
@@ -80,7 +72,7 @@ class HeroAdapter(
         this.notifyDataSetChanged()
     }
 
-    fun updateHero(hero: Hero){
+    fun updateHero(hero: Hero) {
         val index = this.elements.indexOfFirst { it == hero }
         if (index > 0) this.elements[index].isFavorite = !this.elements[index].isFavorite
         this.notifyDataSetChanged()

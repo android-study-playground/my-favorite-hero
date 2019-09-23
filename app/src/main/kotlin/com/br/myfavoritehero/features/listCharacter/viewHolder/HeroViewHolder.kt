@@ -6,16 +6,14 @@ import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.HeroEventListener
 import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.util.getLargeLandscapeThumbnail
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.hero_item.view.favoriteIcon
-import kotlinx.android.synthetic.main.hero_item.view.heroCardImage
-import kotlinx.android.synthetic.main.hero_item.view.heroName
+import kotlinx.android.synthetic.main.hero_item.view.*
 
-class HeroViewHolder(val mLinearLayout: View) : RecyclerView.ViewHolder(mLinearLayout){
+class HeroViewHolder(val mLinearLayout: View) : RecyclerView.ViewHolder(mLinearLayout) {
 
-    fun bind(hero: Hero, listener:HeroEventListener){
-        Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail()).into(mLinearLayout.heroCardImage)
+    fun bind(hero: Hero, listener: HeroEventListener) {
+        Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail())
+            .into(mLinearLayout.heroCardImage)
         mLinearLayout.heroName.text = hero.name
         mLinearLayout.setOnClickListener { listener.onHeroClicked(hero) }
         if (hero.isFavorite) mLinearLayout.favoriteIcon.setImageResource(R.drawable.un_favorite)

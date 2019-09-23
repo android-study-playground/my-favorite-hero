@@ -2,6 +2,7 @@ package com.br.myfavoritehero.features.heroDetails
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.models.Hero
@@ -9,18 +10,16 @@ import com.br.myfavoritehero.features.heroDetails.viewModel.HeroDetailViewModel
 import com.br.myfavoritehero.features.listComics.ComicsFragment
 import com.br.myfavoritehero.util.Constants.HERO
 import com.br.myfavoritehero.util.getLargeLandscapeThumbnail
+import com.br.myfavoritehero.util.getLargePortraitThumbnail
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_detail_hero.fab_favorite_hero
-import kotlinx.android.synthetic.main.activity_detail_hero.toolbar
-import kotlinx.android.synthetic.main.activity_detail_hero.heroImage
-import kotlinx.android.synthetic.main.activity_detail_hero.description
-import kotlinx.android.synthetic.main.activity_detail_hero.scroll_view
+import jp.wasabeef.picasso.transformations.BlurTransformation
+import kotlinx.android.synthetic.main.activity_detail_hero.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailHeroActivity : AppCompatActivity() {
 
-    private lateinit var hero : Hero
+    private lateinit var hero: Hero
     private val heroDetailViewModel: HeroDetailViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,22 +29,34 @@ class DetailHeroActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         hero = intent.getParcelableExtra(HERO)
-        hero = heroDetailViewModel.getHero(hero.id)
-        Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail()).into(heroImage)
-        description.text = hero.description
+        val heroFromDatabse = heroDetailViewModel.getHero(hero.id)
 
-        supportActionBar?.let{
+        heroFromDatabse.let { hero = heroFromDatabse }
+
+        Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail())
+            .transform(BlurTransformation(this)).into(heroImageBackground)
+        Picasso.get().load(hero.thumbnail.path.getLargePortraitThumbnail()).into(heroImage)
+        name.text = hero.name
+
+        if (hero.description.isEmpty()) {
+            history.visibility = View.GONE
+            description.visibility = View.GONE
+        } else {
+            description.text = hero.description
+        }
+
+        supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.title = hero.name
         }
 
         switchVisibility()
 
-        fab_favorite_hero.setOnClickListener{
+        fab_favorite_hero.setOnClickListener {
             if (hero.isFavorite) {
                 hero.isFavorite = !hero.isFavorite
                 Snackbar.make(scroll_view, R.string.unFavorited, Snackbar.LENGTH_SHORT).show()
-            }else{
+            } else {
                 hero.isFavorite = !hero.isFavorite
                 Snackbar.make(scroll_view, R.string.favorited, Snackbar.LENGTH_SHORT).show()
             }
@@ -53,9 +64,9 @@ class DetailHeroActivity : AppCompatActivity() {
         }
 
         supportFragmentManager
-                .beginTransaction()
-                .add(R.id.comicsList, ComicsFragment.newInstance(hero.id))
-                .commit()
+            .beginTransaction()
+            .add(R.id.comicsList, ComicsFragment.newInstance(hero.id))
+            .commit()
     }
 
     override fun onStop() {
@@ -63,10 +74,10 @@ class DetailHeroActivity : AppCompatActivity() {
         heroDetailViewModel.updateHero(hero)
     }
 
-    private fun switchVisibility(){
+    private fun switchVisibility() {
         if (hero.isFavorite) {
             fab_favorite_hero.setImageResource(R.drawable.un_favorite)
-        }else{
+        } else {
             fab_favorite_hero.setImageResource(R.drawable.favorite)
         }
     }

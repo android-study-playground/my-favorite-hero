@@ -8,7 +8,8 @@ val databaseModule = module {
 
     // Room Database
     single {
-        Room.databaseBuilder(get(), AppDatabase::class.java, "my-favorite-hero-db").allowMainThreadQueries().build()
+        Room.databaseBuilder(get(), AppDatabase::class.java, "my-favorite-hero-db")
+            .allowMainThreadQueries().build()
     }
 
     // heroDAO

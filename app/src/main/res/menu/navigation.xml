@@ -14,7 +14,7 @@
         android:id="@+id/favorite"
         android:icon="@drawable/un_favorite"
         android:orderInCategory="100"
-        android:title="@string/favorite"
+        android:title="@string/favorite_heroes"
         app:iconTint="@color/white"
         app:showAsAction="ifRoom"/>
 

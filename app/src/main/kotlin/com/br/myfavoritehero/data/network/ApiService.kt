@@ -15,7 +15,8 @@ interface ApiService {
         @Query("apikey") apiKey: String,
         @Query("hash") hash: String,
         @Query("limit") limit: Int = 50,
-        @Query("offset") offset: Int = 0
+        @Query("offset") offset: Int = 0,
+        @Query("orderBy") orderBy: String = "-modified"
     ): Observable<BaseResponse<Hero>>
 
     @GET("v1/public/comics")

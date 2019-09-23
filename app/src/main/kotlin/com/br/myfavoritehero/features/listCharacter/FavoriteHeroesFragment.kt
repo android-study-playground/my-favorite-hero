@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.HeroEventListener
@@ -25,12 +26,16 @@ class FavoriteHeroesFragment : Fragment(), HeroEventListener {
     private val favoriteHeroesViewModel: FavoriteHeroesViewModel by viewModel()
 
     companion object {
-        fun newInstance(): Fragment{
+        fun newInstance(): Fragment {
             return FavoriteHeroesFragment()
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.activity_favorite_list_heroes, container, false)
     }
 
@@ -38,7 +43,7 @@ class FavoriteHeroesFragment : Fragment(), HeroEventListener {
         super.onActivityCreated(savedInstanceState)
 
         favoriteHeroes.setHasFixedSize(true)
-        val layoutManager = LinearLayoutManager(activity)
+        val layoutManager = GridLayoutManager(activity,2)
         favoriteHeroes.layoutManager = layoutManager
         favoriteHeroAdapter = FavoriteHeroAdapter(ArrayList(), this)
         favoriteHeroes.adapter = favoriteHeroAdapter
@@ -46,15 +51,14 @@ class FavoriteHeroesFragment : Fragment(), HeroEventListener {
         initObservable()
     }
 
-    private fun initObservable(){
+    private fun initObservable() {
 
         this.lifecycle.addObserver(favoriteHeroesViewModel)
 
-        favoriteHeroesViewModel.getFavoriteHeroes().observe(this, Observer{ heroes ->
-            if (heroes.isEmpty()){
+        favoriteHeroesViewModel.getFavoriteHeroes().observe(this, Observer { heroes ->
+            favoriteHeroAdapter.updateUI(heroes)
+            if (heroes.isEmpty()) {
                 Toast.makeText(activity, "LISTA DE FAVORITOS VAZIA", Toast.LENGTH_LONG).show()
-            }else{
-                favoriteHeroAdapter.updateUI(heroes)
             }
         })
 

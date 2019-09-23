@@ -28,21 +28,21 @@ val networkModule = module {
         }
 
         OkHttpClient.Builder()
-                .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-                .addInterceptor(httpLogInterceptor)
-                .build()
+            .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+            .addInterceptor(httpLogInterceptor)
+            .build()
     }
 
     single<Retrofit> {
         val baseUrl = getProperty<String>(PROPERTY_BASE_URL)
         Retrofit
-                .Builder()
-                .addConverterFactory(GsonConverterFactory.create(Gson()))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(baseUrl)
-                .client(get())
-                .build()
+            .Builder()
+            .addConverterFactory(GsonConverterFactory.create(Gson()))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .baseUrl(baseUrl)
+            .client(get())
+            .build()
     }
 
     single<ApiService> {

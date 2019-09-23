@@ -6,6 +6,7 @@ import com.br.myfavoritehero.base.BaseViewModelTest
 import com.br.myfavoritehero.data.models.Comic
 import com.br.myfavoritehero.data.models.ErrorResponse
 import com.br.myfavoritehero.data.models.ViewStateModel
+import com.br.myfavoritehero.features.listComics.viewModel.ComicsViewModel
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import org.junit.Assert

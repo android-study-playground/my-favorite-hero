@@ -1,4 +1,4 @@
-package com.br.myfavoritehero.data.request
+package com.br.myfavoritehero.data.repository
 
 import com.br.myfavoritehero.BuildConfig
 import com.br.myfavoritehero.base.BaseResponse
@@ -11,7 +11,8 @@ import com.br.myfavoritehero.util.Util
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 
-class Repository(private val apiService: ApiService) : RepositoryContract {
+class RepositoryRemote(private val apiService: ApiService) :
+    RepositoryRemoteContract {
 
     override fun getComics(characterId: String): Observable<BaseResponse<Comic>> {
         val ts = (System.currentTimeMillis() / ONE_SECOND)
