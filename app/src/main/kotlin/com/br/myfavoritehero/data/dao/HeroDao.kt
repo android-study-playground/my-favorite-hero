@@ -10,7 +10,9 @@ interface HeroDao {
 
     @Query("SELECT * FROM hero WHERE hero.isFavorite = 1 ORDER BY hero.name") fun getFavorites(): LiveData<List<Hero>>
 
-    @Query("SELECT * FROM hero ORDER BY hero.name LIMIT :offset, :limit") fun getAll(offset: Int, limit:Int = LIMIT ): LiveData<List<Hero>>
+    @Query("SELECT * FROM hero ORDER BY hero.modified DESC") fun getAll(): LiveData<List<Hero>>
+
+    @Query("SELECT * FROM hero ORDER BY hero.modified DESC LIMIT :offset, :limit") fun getAll(offset: Int, limit:Int = LIMIT ): List<Hero>
 
     @Query("SELECT * FROM hero WHERE hero.id = :id ") fun get(id:Int): Hero
 

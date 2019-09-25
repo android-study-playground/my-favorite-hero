@@ -28,4 +28,5 @@ interface ApiService {
         @Query("limit") limit: Int = 50,
         @Query("offset") offset: Int = 0
     ): Observable<BaseResponse<Comic>>
+    
 }

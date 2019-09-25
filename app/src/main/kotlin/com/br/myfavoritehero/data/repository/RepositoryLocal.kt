@@ -17,9 +17,14 @@ class RepositoryLocal(
         return heroDao.getFavorites()
     }
 
-    override fun getAllHeroes(offset: Int): Observable<BaseResponse<Hero>> {
+    override fun getAllHeroes(): Observable<BaseResponse<Hero>>{
+        val response = BaseResponse(0, ViewStateModel.Status.SUCCESS.toString(), "", "", "", Data<Hero>(), "")
+        return Observable.just(response)
+    }
+
+    override fun getHeroes(offset: Int): Observable<BaseResponse<Hero>> {
         val myOffset = offset * LIMIT
-        val heroes:ArrayList<Hero> = ArrayList(heroDao.getAll(myOffset).value ?: listOf())
+        val heroes:ArrayList<Hero> = ArrayList(heroDao.getAll(myOffset))
         val result = Data(offset, LIMIT, 0, 0, heroes)
         val response = BaseResponse(0, ViewStateModel.Status.SUCCESS.toString(), "", "", "", result, "")
         return Observable.just(response)

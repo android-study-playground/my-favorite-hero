@@ -8,7 +8,8 @@ import io.reactivex.Observable
 interface RepositoryLocalContract {
 
     fun getFavoriteHeroes():LiveData<List<Hero>>
-    fun getAllHeroes(offset : Int = 0): Observable<BaseResponse<Hero>>
+    fun getAllHeroes(): Observable<BaseResponse<Hero>>
+    fun getHeroes(offset : Int = 0): Observable<BaseResponse<Hero>>
     fun saveAllHeroes(heroes: ArrayList<Hero>)
 
     fun getHero(id: Int): Hero

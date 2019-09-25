@@ -58,4 +58,17 @@ class Converters: Serializable{
         return gson.fromJson(optionValuesString, type)
     }
 
+    @TypeConverter
+    fun fromString(value: String): ArrayList<String> {
+        val listType = object : TypeToken<ArrayList<String>>() {}.type
+        val gson = Gson()
+        return gson.fromJson(value, listType)
+    }
+
+    @TypeConverter
+    fun fromArrayLisr(list: ArrayList<String>): String {
+        val gson = Gson()
+        return gson.toJson(list)
+    }
+
 }

@@ -68,7 +68,7 @@ class HeroAdapter(
     }
 
     fun updateUI(elements: ArrayList<Hero>) {
-        this.elements.addAll(elements)
+        this.elements.addAll(elements.filter{ !this.elements.contains(it) })
         this.notifyDataSetChanged()
     }
 
