@@ -145,4 +145,18 @@ class ListComicsViewModelTest : BaseViewModelTest() {
         comicsViewModel.loadComics(characterId)
         Assert.assertEquals(expected, actual)
     }
+
+    @Test
+    fun checkLoadComicsLoadingState() {
+        mockResponseError409()
+
+        val expected = ViewStateModel<ArrayList<Comic>>(status = ViewStateModel.Status.LOADING)
+
+        comicsViewModel.getComics().observeForever {
+            Assert.assertEquals(expected, it)
+        }
+
+        comicsViewModel.loadComics(characterId)
+    }
+
 }

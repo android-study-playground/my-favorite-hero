@@ -8,8 +8,10 @@ import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 
 
-
-class Repository(private val repositoryRemote: RepositoryRemoteContract, private val repositoryLocal: RepositoryLocalContract): RepositoryContract{
+class Repository(
+    private val repositoryRemote: RepositoryRemoteContract,
+    private val repositoryLocal: RepositoryLocalContract
+) : RepositoryContract {
 
     override fun getHero(id: Int): Hero {
         return repositoryLocal.getHero(id)
@@ -28,22 +30,20 @@ class Repository(private val repositoryRemote: RepositoryRemoteContract, private
     }
 
     override fun getHeroes(): Observable<BaseResponse<Hero>> {
-//        return Observable.concatArray(repositoryLocal.getHeroes(0), repositoryRemote.getHeroes().doOnNext{ repositoryLocal.saveAllHeroes(it.data.results) } )
-//        return repositoryRemote.getHeroes().doOnNext { repositoryLocal.saveAllHeroes(it.data.results) }
         return Observable.mergeDelayError(
-            repositoryLocal.getHeroes(0).subscribeOn(Schedulers.io()),
-            repositoryRemote.getHeroes().doOnNext { repositoryLocal.saveAllHeroes(it.data.results)  }.subscribeOn(Schedulers.io())
+            repositoryRemote.getHeroes().doOnNext { repositoryLocal.saveAllHeroes(it.data.results) }.subscribeOn(
+                Schedulers.io()
+            ),
+            repositoryLocal.getHeroes(0).subscribeOn(Schedulers.io())
         )
-
     }
 
     override fun loadMore(offset: Int): Observable<BaseResponse<Hero>> {
-//        return Observable.concatArray(repositoryLocal.getHeroes(offset), repositoryRemote.loadMore(offset).doOnNext{ repositoryLocal.saveAllHeroes(it.data.results) } )
-//        return repositoryRemote.loadMore(offset).doOnNext { repositoryLocal.saveAllHeroes(it.data.results) }
         return Observable.mergeDelayError(
-            repositoryLocal.getHeroes(offset).subscribeOn(Schedulers.io()),
-            repositoryRemote.loadMore(offset).doOnNext { repositoryLocal.saveAllHeroes(it.data.results)  }.subscribeOn(Schedulers.io())
+            repositoryRemote.loadMore(offset).doOnNext { repositoryLocal.saveAllHeroes(it.data.results) }.subscribeOn(
+                Schedulers.io()
+            ),
+            repositoryLocal.getHeroes(offset).subscribeOn(Schedulers.io())
         )
-
     }
 }
