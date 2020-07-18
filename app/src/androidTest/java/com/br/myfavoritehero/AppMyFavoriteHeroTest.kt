@@ -2,11 +2,7 @@ package com.br.myfavoritehero
 
 import android.app.Application
 import android.os.AsyncTask
-import com.br.myfavoritehero.di.PROPERTY_BASE_URL
-import com.br.myfavoritehero.di.networkModule
-import com.br.myfavoritehero.di.repositoryModule
-import com.br.myfavoritehero.di.viewModelModule
-import com.br.myfavoritehero.util.BASE_URL
+import com.br.myfavoritehero.di.*
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.koin.androidContext
@@ -33,12 +29,13 @@ class AppMyFavoriteHeroTest : Application() {
             androidContext(this@AppMyFavoriteHeroTest)
 
             modules(listOf(
-                    viewModelModule,
-                    repositoryModule,
-                    networkModule
+                databaseModule,
+                networkModule,
+                repositoryModule,
+                viewModelModule
             ))
 
-            properties(mapOf(PROPERTY_BASE_URL to BASE_URL))
+            properties(mapOf(PROPERTY_BASE_URL to "http://localhost:8080/"))
         }
     }
 }

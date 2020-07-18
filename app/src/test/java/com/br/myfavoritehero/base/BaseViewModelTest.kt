@@ -1,17 +1,17 @@
 package com.br.myfavoritehero.base
 
+import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.br.myfavoritehero.di.PROPERTY_BASE_URL
-import com.br.myfavoritehero.di.networkModule
-import com.br.myfavoritehero.di.repositoryModule
-import com.br.myfavoritehero.di.viewModelModule
+import com.br.myfavoritehero.di.*
 import com.br.myfavoritehero.rules.RxImmediateSchedulerRule
+import io.mockk.mockk
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Rule
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
@@ -28,14 +28,17 @@ open class BaseViewModelTest : KoinTest {
     @get:Rule
     var rule = InstantTaskExecutorRule()
 
+    private val mContextMock = mockk<Context>(relaxed = true)
+
     @Before
     @Throws fun setUp() {
-
         startKoin {
+            androidContext(mContextMock)
             modules(listOf(
-                    viewModelModule,
-                    repositoryModule,
-                    networkModule
+                databaseModule,
+                networkModule,
+                repositoryModule,
+                viewModelModule
             ))
 
             properties((mapOf(PROPERTY_BASE_URL to "http://localhost:8080/")))

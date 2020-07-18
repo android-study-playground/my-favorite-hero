@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.br.myfavoritehero.R
@@ -14,21 +15,20 @@ import com.br.myfavoritehero.data.interfaces.HeroEventListener
 import com.br.myfavoritehero.data.models.Hero
 import com.br.myfavoritehero.data.models.ViewStateModel
 import com.br.myfavoritehero.features.heroDetails.DetailHeroActivity
+import com.br.myfavoritehero.features.listCharacter.adapter.HeroAdapter
+import com.br.myfavoritehero.features.listCharacter.viewModel.ListHeroesViewModel
 import com.br.myfavoritehero.util.Constants.HERO
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_list_heroes.listHeroes
-import kotlinx.android.synthetic.main.activity_list_heroes.activity_list_heroes
-import kotlinx.android.synthetic.main.generic_error_screen.error_screen
-import kotlinx.android.synthetic.main.generic_error_screen.tryAgain
+import kotlinx.android.synthetic.main.activity_list_heroes.*
+import kotlinx.android.synthetic.main.generic_error_screen.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class ListHeroesFragment : Fragment(), HeroEventListener {
 
     private var heroAdapter: HeroAdapter = HeroAdapter(ArrayList(), this)
-    private lateinit var layoutManager: LinearLayoutManager
-
-    val listCharacterViewModel: ListHeroesViewModel by viewModel()
+    private lateinit var layoutManager: GridLayoutManager
+    private val listCharacterViewModel: ListHeroesViewModel by viewModel()
 
     companion object {
         fun newInstance(): Fragment {
@@ -36,7 +36,11 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.activity_list_heroes, container, false)
     }
 
@@ -50,7 +54,7 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
     }
 
     private fun initListHeroes() {
-        layoutManager = LinearLayoutManager(activity)
+        layoutManager = GridLayoutManager(activity, 2)
         listHeroes.layoutManager = layoutManager
         listHeroes.adapter = heroAdapter
         listHeroes.setHasFixedSize(true)
@@ -64,14 +68,15 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
 
             when (stateModel.status) {
                 ViewStateModel.Status.ERROR -> {
+                    heroAdapter.stopLoading()
                     error_screen.visibility = View.VISIBLE
                     listHeroes.visibility = View.GONE
-                    heroAdapter.stopLoading()
                     Timber.d("ERROR: ${stateModel.errors}")
                 }
                 ViewStateModel.Status.SUCCESS -> {
-                    listHeroes.visibility = View.VISIBLE
                     heroAdapter.stopLoading()
+                    listHeroes.visibility = View.VISIBLE
+                    error_screen.visibility = View.GONE
                     stateModel.model?.let {
                         heroAdapter.updateUI(it)
                     }
@@ -90,9 +95,9 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
                     })
                 }
                 ViewStateModel.Status.LOADING -> {
+                    heroAdapter.startLoading()
                     error_screen.visibility = View.GONE
                     listHeroes.visibility = View.VISIBLE
-                    heroAdapter.startLoading()
                     Timber.d("LOADING: ... ")
                 }
             }
@@ -101,9 +106,13 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
         listCharacterViewModel.getMore().observe(this, Observer { stateModel ->
             when (stateModel.status) {
                 ViewStateModel.Status.ERROR -> {
-                    Snackbar.make(activity_list_heroes, R.string.error_dialog_title, Snackbar.LENGTH_SHORT).show()
-                    Timber.d("ERROR: ${stateModel.errors}")
                     heroAdapter.stopLoading()
+                    Snackbar.make(
+                        activity_list_heroes,
+                        R.string.error_dialog_title,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                    Timber.d("ERROR: ${stateModel.errors}")
                 }
                 ViewStateModel.Status.SUCCESS -> {
                     heroAdapter.stopLoading()
@@ -125,5 +134,16 @@ class ListHeroesFragment : Fragment(), HeroEventListener {
             i.putExtra(HERO, hero)
             startActivity(i)
         }
+    }
+
+    override fun onHeroFavorited(hero: Hero) {
+        if (hero.isFavorite) {
+            Snackbar.make(activity_list_heroes, R.string.unFavorited, Snackbar.LENGTH_SHORT).show()
+        } else {
+            Snackbar.make(activity_list_heroes, R.string.favorited, Snackbar.LENGTH_SHORT).show()
+        }
+        hero.isFavorite = !hero.isFavorite
+        heroAdapter.updateHero(hero)
+        listCharacterViewModel.updateHero(hero)
     }
 }

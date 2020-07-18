@@ -1,4 +1,4 @@
-package com.br.myfavoritehero.features.listComics
+package com.br.myfavoritehero.features.listComics.viewHolder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

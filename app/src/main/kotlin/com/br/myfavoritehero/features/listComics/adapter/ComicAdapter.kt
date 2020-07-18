@@ -1,4 +1,4 @@
-package com.br.myfavoritehero.features.listComics
+package com.br.myfavoritehero.features.listComics.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,11 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.ComicEventListener
 import com.br.myfavoritehero.data.models.Comic
+import com.br.myfavoritehero.features.listComics.viewHolder.ComicViewHolder
 import com.br.myfavoritehero.util.getLargePortraitThumbnail
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.comic_item.view.comicTitle
-import kotlinx.android.synthetic.main.comic_item.view.comicImage
-import kotlinx.android.synthetic.main.comic_item.view.comicDescription
+import kotlinx.android.synthetic.main.comic_item.view.*
 
 class ComicAdapter(
     private val elements: ArrayList<Comic>,
@@ -26,7 +25,8 @@ class ComicAdapter(
         if (holder is ComicViewHolder) {
             elements.let {
                 val comic = it[position]
-                Picasso.get().load(comic.thumbnail.path.getLargePortraitThumbnail()).into(holder.mLinearLayout.comicImage)
+                Picasso.get().load(comic.thumbnail.path.getLargePortraitThumbnail())
+                    .into(holder.mLinearLayout.comicImage)
                 holder.mLinearLayout.comicTitle.text = comic.title
                 holder.mLinearLayout.comicDescription.text = comic.description
                 holder.mLinearLayout.setOnClickListener { listener.onComicClicked(comic) }

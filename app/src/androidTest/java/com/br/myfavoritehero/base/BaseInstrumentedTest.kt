@@ -6,6 +6,7 @@ import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 
 import java.net.HttpURLConnection
+import java.util.concurrent.TimeUnit
 
 abstract class BaseInstrumentedTest {
 
@@ -20,10 +21,11 @@ abstract class BaseInstrumentedTest {
         mockWebServer.shutdown()
     }
 
-    private fun setResponse(responseJson: String, code: Int) {
+    private fun setResponse(responseJson: String, code: Int, delay: Long = 0) {
         val mockResponse = MockResponse()
                 .setResponseCode(code)
                 .setBody(responseJson.getJson())
+                .setBodyDelay(delay, TimeUnit.MILLISECONDS)
 
         mockWebServer.enqueue(mockResponse)
     }
@@ -35,4 +37,5 @@ abstract class BaseInstrumentedTest {
     fun mockResponseError401() {
         setResponse("mock/common/return_error_401.json", HttpURLConnection.HTTP_UNAUTHORIZED)
     }
+
 }

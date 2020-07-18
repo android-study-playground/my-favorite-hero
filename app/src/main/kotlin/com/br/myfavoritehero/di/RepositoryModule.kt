@@ -1,9 +1,10 @@
 package com.br.myfavoritehero.di
 
-import com.br.myfavoritehero.data.request.Repository
-import com.br.myfavoritehero.data.request.RepositoryContract
+import com.br.myfavoritehero.data.repository.*
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    factory { Repository(get()) as RepositoryContract }
+    single { RepositoryRemote(get()) as RepositoryRemoteContract}
+    single { RepositoryLocal(get()) as RepositoryLocalContract }
+    single { Repository(get(), get()) as RepositoryContract }
 }
