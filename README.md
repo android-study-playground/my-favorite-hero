@@ -1,5 +1,4 @@
-https://github.com/androidstudyplayground/my-favorite-hero/workflows/Android%20CI/badge.svg
-
+![](https://github.com/androidstudyplayground/my-favorite-hero/workflows/Android%20CI/badge.svg)
 
 # My Favorite Hero
 This branch (master) is being used to study, some branches (android_basics, android_intermediate) were used to teach some students at the university - UFRPE, now they are gone!
