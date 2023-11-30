@@ -1,17 +1,19 @@
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-kapt'
-
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+}
 
 android {
-    compileSdkVersion 28
+    namespace 'com.br.myfavoritehero'
+    compileSdk 34
+
     defaultConfig {
         applicationId "com.br.myfavoritehero"
-        minSdkVersion 14
-        targetSdkVersion 28
+        minSdkVersion 24
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "com.br.myfavoritehero.util.MyFavoriteHeroTestRunner"
@@ -54,21 +56,24 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    viewBinding {
+        enabled = true
+    }
 }
 
-androidExtensions {
-    experimental = true
-}
 
 dependencies {
     //default
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:$appcompat"
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation "com.android.support:design:$design"
-    implementation "androidx.core:core-ktx:$core_ktx"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
-    implementation "androidx.recyclerview:recyclerview:$recyclerview"
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.legacy:legacy-support-v4:$legacy_support_v4"
 
     //ROOM
@@ -90,10 +95,8 @@ dependencies {
     implementation "com.facebook.shimmer:shimmer:$shimmer"
 
     //Koin
-    implementation "org.koin:koin-core:$koin"
-    implementation "org.koin:koin-android:$koin"
-    implementation "org.koin:koin-androidx-scope:$koin"
-    implementation "org.koin:koin-androidx-viewmodel:$koin"
+    implementation "io.insert-koin:koin-core:$koin"
+    implementation "io.insert-koin:koin-android:$koin"
 
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
@@ -112,7 +115,7 @@ dependencies {
 
     //Unit Test
     testImplementation "junit:junit:$junit"
-    testImplementation "org.koin:koin-test:$koin"
+    testImplementation "io.insert-koin:koin-test:$koin"
     testImplementation "androidx.test:rules:$androidx_test_rules"
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp"
     testImplementation "androidx.arch.core:core-testing:$core_testing"
@@ -121,7 +124,7 @@ dependencies {
     //Instrumented Test
     debugImplementation "androidx.fragment:fragment-testing:$fragment_testing"
     androidTestImplementation "androidx.test:runner:$runner"
-    androidTestImplementation "org.koin:koin-test:$koin"
+    androidTestImplementation "io.insert-koin:koin-test:$koin"
     androidTestImplementation "androidx.test:rules:$androidx_test_rules"
     androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okhttp"
     androidTestImplementation "androidx.test.ext:junit:$androidx_test_rules"

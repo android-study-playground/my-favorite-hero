@@ -33,6 +33,8 @@
         android:visibility="gone"
         tools:listitem="@layout/comic_item"  />
 
-    <include layout="@layout/comic_list_loading"/>
+    <include
+        android:id="@+id/loadingComic"
+        layout="@layout/comic_list_loading"/>
 
 </LinearLayout>

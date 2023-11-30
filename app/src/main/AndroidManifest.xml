@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.br.myfavoritehero">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -17,8 +16,8 @@
         android:theme="@style/FavoriteHeroBase"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:exported="true"
             android:name=".features.splash.SplashActivity"
-            android:noHistory="true"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -27,11 +26,13 @@
         </activity>
 
         <activity
+            android:exported="false"
             android:name=".features.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity
+            android:exported="false"
             android:name=".features.heroDetails.DetailHeroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
