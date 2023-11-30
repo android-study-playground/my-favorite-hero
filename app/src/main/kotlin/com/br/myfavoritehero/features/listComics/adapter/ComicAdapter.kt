@@ -3,13 +3,10 @@ package com.br.myfavoritehero.features.listComics.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.ComicEventListener
 import com.br.myfavoritehero.data.models.Comic
+import com.br.myfavoritehero.databinding.ComicItemBinding
 import com.br.myfavoritehero.features.listComics.viewHolder.ComicViewHolder
-import com.br.myfavoritehero.util.getLargePortraitThumbnail
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.comic_item.view.*
 
 class ComicAdapter(
     private val elements: ArrayList<Comic>,
@@ -17,7 +14,7 @@ class ComicAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.comic_item, parent, false)
+        val view = ComicItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ComicViewHolder(view)
     }
 
@@ -25,11 +22,7 @@ class ComicAdapter(
         if (holder is ComicViewHolder) {
             elements.let {
                 val comic = it[position]
-                Picasso.get().load(comic.thumbnail.path.getLargePortraitThumbnail())
-                    .into(holder.mLinearLayout.comicImage)
-                holder.mLinearLayout.comicTitle.text = comic.title
-                holder.mLinearLayout.comicDescription.text = comic.description
-                holder.mLinearLayout.setOnClickListener { listener.onComicClicked(comic) }
+                holder.bind(comic, listener)
             }
         }
     }

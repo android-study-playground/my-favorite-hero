@@ -26,7 +26,7 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver {
         when (error) {
             is HttpException -> {
                 errorResponse = gson.fromJson(
-                        error.response().errorBody()?.charStream(),
+                        error.response()?.errorBody()?.charStream(),
                         ErrorResponse::class.java)
 
                 when (error.code()) {

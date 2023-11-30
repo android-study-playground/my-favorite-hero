@@ -35,7 +35,7 @@ val networkModule = module {
     }
 
     single<Retrofit> {
-        val baseUrl = getProperty<String>(PROPERTY_BASE_URL)
+        val baseUrl = getProperty(PROPERTY_BASE_URL)
         Retrofit
             .Builder()
             .addConverterFactory(GsonConverterFactory.create(Gson()))

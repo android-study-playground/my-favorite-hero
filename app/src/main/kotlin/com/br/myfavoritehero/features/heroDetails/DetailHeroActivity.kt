@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.models.Hero
+import com.br.myfavoritehero.databinding.ActivityDetailHeroBinding
 import com.br.myfavoritehero.features.heroDetails.viewModel.HeroDetailViewModel
 import com.br.myfavoritehero.features.listComics.ComicsFragment
 import com.br.myfavoritehero.util.Constants.HERO
@@ -14,51 +15,53 @@ import com.br.myfavoritehero.util.getLargePortraitThumbnail
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.BlurTransformation
-import kotlinx.android.synthetic.main.activity_detail_hero.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailHeroActivity : AppCompatActivity() {
 
-    private lateinit var hero: Hero
+    private var hero: Hero = Hero()
     private val heroDetailViewModel: HeroDetailViewModel by viewModel()
+    private lateinit var binding: ActivityDetailHeroBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_hero)
+        binding = ActivityDetailHeroBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
-        setSupportActionBar(toolbar)
-
-        hero = intent.getParcelableExtra(HERO)
+        intent.getParcelableExtra<Hero>(HERO) ?.let{
+            hero = it
+        }
         val heroFromDatabse = heroDetailViewModel.getHero(hero.id)
 
         heroFromDatabse.let { hero = heroFromDatabse }
 
         Picasso.get().load(hero.thumbnail.path.getLargeLandscapeThumbnail())
-            .transform(BlurTransformation(this)).into(heroImageBackground)
-        Picasso.get().load(hero.thumbnail.path.getLargePortraitThumbnail()).into(heroImage)
-        name.text = hero.name
+            .transform(BlurTransformation(this)).into(binding.heroImageBackground)
+        Picasso.get().load(hero.thumbnail.path.getLargePortraitThumbnail()).into(binding.heroImage)
+        binding.name.text = hero.name
 
         if (hero.description.isEmpty()) {
-            history.visibility = View.GONE
-            description.visibility = View.GONE
+            binding.history.visibility = View.GONE
+            binding.description.visibility = View.GONE
         } else {
-            description.text = hero.description
+            binding.description.text = hero.description
         }
 
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
-            it.title = hero.name
+            it.title = hero?.name
         }
 
         switchVisibility()
 
-        fab_favorite_hero.setOnClickListener {
-            if (hero.isFavorite) {
-                hero.isFavorite = !hero.isFavorite
-                Snackbar.make(scroll_view, R.string.unFavorited, Snackbar.LENGTH_SHORT).show()
+        binding.fabFavoriteHero.setOnClickListener {
+            if (hero?.isFavorite == true) {
+                hero?.isFavorite = !hero!!.isFavorite
+                Snackbar.make(binding.scrollView, R.string.unFavorited, Snackbar.LENGTH_SHORT).show()
             } else {
-                hero.isFavorite = !hero.isFavorite
-                Snackbar.make(scroll_view, R.string.favorited, Snackbar.LENGTH_SHORT).show()
+                hero?.isFavorite = !hero!!.isFavorite
+                Snackbar.make(binding.scrollView, R.string.favorited, Snackbar.LENGTH_SHORT).show()
             }
             switchVisibility()
         }
@@ -76,9 +79,9 @@ class DetailHeroActivity : AppCompatActivity() {
 
     private fun switchVisibility() {
         if (hero.isFavorite) {
-            fab_favorite_hero.setImageResource(R.drawable.un_favorite)
+            binding.fabFavoriteHero.setImageResource(R.drawable.un_favorite)
         } else {
-            fab_favorite_hero.setImageResource(R.drawable.favorite)
+            binding.fabFavoriteHero.setImageResource(R.drawable.favorite)
         }
     }
 

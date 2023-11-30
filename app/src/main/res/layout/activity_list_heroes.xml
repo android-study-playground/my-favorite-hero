@@ -16,6 +16,8 @@
             app:spanCount="2"
             tools:listitem="@layout/hero_item" />
 
-    <include layout="@layout/generic_error_screen"/>
+    <include
+        android:id="@+id/genericError"
+        layout="@layout/generic_error_screen"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

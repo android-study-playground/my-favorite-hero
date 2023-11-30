@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.HeroEventListener
 import com.br.myfavoritehero.data.models.Hero
+import com.br.myfavoritehero.databinding.HeroItemBinding
+import com.br.myfavoritehero.databinding.HeroListLoadingBinding
 import com.br.myfavoritehero.features.listCharacter.viewHolder.HeroLoadingViewHolder
 import com.br.myfavoritehero.features.listCharacter.viewHolder.HeroViewHolder
 
@@ -26,12 +28,12 @@ class HeroAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == HERO_TYPE) {
             val view =
-                LayoutInflater.from(parent.context).inflate(R.layout.hero_item, parent, false)
-            context = view.context
+                HeroItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            context = view.root.context
             HeroViewHolder(view)
         } else {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.hero_list_loading, parent, false)
-            context = view.context
+            val view = HeroListLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            context = view.root.context
             HeroLoadingViewHolder(view)
         }
     }

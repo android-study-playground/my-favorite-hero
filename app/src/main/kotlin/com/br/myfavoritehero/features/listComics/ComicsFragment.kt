@@ -7,14 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.ComicEventListener
 import com.br.myfavoritehero.data.models.Comic
 import com.br.myfavoritehero.data.models.ViewStateModel
+import com.br.myfavoritehero.databinding.ComicsFragmentBinding
 import com.br.myfavoritehero.features.listComics.adapter.ComicAdapter
 import com.br.myfavoritehero.features.listComics.viewModel.ComicsViewModel
-import kotlinx.android.synthetic.main.comic_list_loading.*
-import kotlinx.android.synthetic.main.comics_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -35,14 +33,26 @@ class ComicsFragment : Fragment(), ComicEventListener {
     private var heroId: Int = 0
     private val comicsViewModel: ComicsViewModel by viewModel()
     private var comicsAdapter: ComicAdapter? = null
+    private var _binding: ComicsFragmentBinding? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.comics_fragment, container, false)
+        _binding = ComicsFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+    
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -51,32 +61,32 @@ class ComicsFragment : Fragment(), ComicEventListener {
     }
 
     private fun initObservable() {
-        comicsViewModel.getComics().observe(this, Observer { stateModel ->
+        comicsViewModel.getComics().observe(viewLifecycleOwner, Observer { stateModel ->
             when (stateModel.status) {
                 ViewStateModel.Status.ERROR -> {
-                    comics_label.visibility = View.GONE
-                    comics_divider.visibility = View.GONE
-                    comics_list.visibility = View.GONE
-                    comics_shimmer_view_container.stopShimmer()
-                    comics_shimmer_view_container.visibility = View.GONE
+                    binding.comicsLabel.visibility = View.GONE
+                    binding.comicsDivider.visibility = View.GONE
+                    binding.comicsList.visibility = View.GONE
+                    binding.loadingComic.comicsShimmerViewContainer.stopShimmer()
+                    binding.loadingComic.comicsShimmerViewContainer.visibility = View.GONE
                     Timber.d("ERROR: ${stateModel.errors}")
                 }
                 ViewStateModel.Status.SUCCESS -> {
-                    comics_list.visibility = View.VISIBLE
-                    comics_shimmer_view_container.visibility = View.GONE
-                    comics_shimmer_view_container.stopShimmer()
-                    comics_list.setHasFixedSize(true)
+                    binding.comicsList.visibility = View.VISIBLE
+                    binding.loadingComic.comicsShimmerViewContainer.visibility = View.GONE
+                    binding.loadingComic.comicsShimmerViewContainer.stopShimmer()
+                    binding.comicsList.setHasFixedSize(true)
                     val layoutManager = LinearLayoutManager(activity)
-                    comics_list.layoutManager = layoutManager
+                    binding.comicsList.layoutManager = layoutManager
                     stateModel.model?.let {
                         comicsAdapter =
                             ComicAdapter(it, this)
-                        comics_list.adapter = comicsAdapter
+                        binding.comicsList.adapter = comicsAdapter
                     }
                 }
                 ViewStateModel.Status.LOADING -> {
-                    comics_shimmer_view_container.visibility = View.VISIBLE
-                    comics_shimmer_view_container.startShimmer()
+                    binding.loadingComic.comicsShimmerViewContainer.visibility = View.VISIBLE
+                    binding.loadingComic.comicsShimmerViewContainer.startShimmer()
                     Timber.d("LOADING: ... ")
                 }
             }

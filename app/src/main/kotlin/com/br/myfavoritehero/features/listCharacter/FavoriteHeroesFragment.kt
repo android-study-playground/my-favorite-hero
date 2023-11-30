@@ -9,15 +9,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.br.myfavoritehero.R
 import com.br.myfavoritehero.data.interfaces.HeroEventListener
 import com.br.myfavoritehero.data.models.Hero
+import com.br.myfavoritehero.databinding.ActivityFavoriteListHeroesBinding
 import com.br.myfavoritehero.features.heroDetails.DetailHeroActivity
 import com.br.myfavoritehero.features.listCharacter.adapter.FavoriteHeroAdapter
 import com.br.myfavoritehero.features.listCharacter.viewModel.FavoriteHeroesViewModel
 import com.br.myfavoritehero.util.Constants.HERO
-import kotlinx.android.synthetic.main.activity_favorite_list_heroes.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteHeroesFragment : Fragment(), HeroEventListener {
@@ -25,28 +24,39 @@ class FavoriteHeroesFragment : Fragment(), HeroEventListener {
     private lateinit var favoriteHeroAdapter: FavoriteHeroAdapter
     private val favoriteHeroesViewModel: FavoriteHeroesViewModel by viewModel()
 
-    companion object {
-        fun newInstance(): Fragment {
-            return FavoriteHeroesFragment()
-        }
-    }
+    private var _binding: ActivityFavoriteListHeroesBinding? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.activity_favorite_list_heroes, container, false)
+        _binding = ActivityFavoriteListHeroesBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+    companion object {
+        fun newInstance(): Fragment {
+            return FavoriteHeroesFragment()
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        favoriteHeroes.setHasFixedSize(true)
+        binding.favoriteHeroes.setHasFixedSize(true)
         val layoutManager = GridLayoutManager(activity,2)
-        favoriteHeroes.layoutManager = layoutManager
+        binding.favoriteHeroes.layoutManager = layoutManager
         favoriteHeroAdapter = FavoriteHeroAdapter(ArrayList(), this)
-        favoriteHeroes.adapter = favoriteHeroAdapter
+        binding.favoriteHeroes.adapter = favoriteHeroAdapter
 
         initObservable()
     }
@@ -55,7 +65,7 @@ class FavoriteHeroesFragment : Fragment(), HeroEventListener {
 
         this.lifecycle.addObserver(favoriteHeroesViewModel)
 
-        favoriteHeroesViewModel.getFavoriteHeroes().observe(this, Observer { heroes ->
+        favoriteHeroesViewModel.getFavoriteHeroes().observe(viewLifecycleOwner, Observer { heroes ->
             favoriteHeroAdapter.updateUI(heroes)
             if (heroes.isEmpty()) {
                 Toast.makeText(activity, "LISTA DE FAVORITOS VAZIA", Toast.LENGTH_LONG).show()
